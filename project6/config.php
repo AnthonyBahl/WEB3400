@@ -95,9 +95,9 @@ function template_nav($siteTitle = "Site Title")
             <div class="navbar-end">
               <div class="navbar-item">
                 <div class="buttons">
-                  <a href="admin.php" class="button">
+                  <a href="index.php" class="button">
                     <span class="icon"><i class="fas fa-user"></i></span>
-                    <span>Admin</span>
+                    <span>Home</span>
                   </a>
                   <a href="contact.php" class="button">
                     <span class="icon"><i class="fas fa-address-book"></i></span>
