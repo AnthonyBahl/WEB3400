@@ -69,75 +69,154 @@ EOT;
 
 function template_nav($siteTitle = "Site Title")
 {
-  echo <<<EOT
-  <!-- START NAV -->
-    <nav class="navbar is-light">
-      <div class="container">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="index.php">
-            <span class="icon is-large">
-              <i class="fas fa-home"></i>
-            </span>
-            <span>$siteTitle</span>
-          </a>
-          <div class="navbar-burger burger" data-target="navMenu">
-            <span></span>
-            <span></span>
-            <span></span>
+  if (!isset($_SESSION['loggedin'])) {
+    // User is not logged in
+    echo <<<EOT
+    <!-- START NAV -->
+      <nav class="navbar is-light">
+        <div class="container">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="index.php">
+              <span class="icon is-large">
+                <i class="fas fa-home"></i>
+              </span>
+              <span>$siteTitle</span>
+            </a>
+            <div class="navbar-burger burger" data-target="navMenu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
           </div>
-        </div>
-        <div id="navMenu" class="navbar-menu">
-          <div class="navbar-start">
-            <!-- navbar link go here -->
-          </div>
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="buttons">
-                <a href="profile.php" class="button">
-                  <span class="icon"><i class="fas fa-user"></i></span>
-                  <span>Profile</span>
-                </a>
-                <a href="polls.php" class="button">
-                  <span class="icon"><i class="fas fa-poll"></i></span>
-                  <span>Polls</span>
-                </a>
-                <a href="contacts.php" class="button">
-                  <span class="icon"><i class="fas fa-address-book"></i></span>
-                  <span>Contacts</span>
-                </a>
-                <a href="logout.php" class="button">
-                  <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
-                  <span>Sign Out</span>
-                </a>
+          <div id="navMenu" class="navbar-menu">
+            <div class="navbar-start">
+              <!-- navbar link go here -->
+            </div>
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons">
+                  <a href="admin.php" class="button">
+                    <span class="icon"><i class="fas fa-user"></i></span>
+                    <span>Admin</span>
+                  </a>
+                  <a href="contact.php" class="button">
+                    <span class="icon"><i class="fas fa-address-book"></i></span>
+                    <span>Contact Us</span>
+                  </a>
+                  <a href="login.php" class="button">
+                    <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                    <span>Login</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </nav>
-    <!-- END NAV -->
+      </nav>
+      <!-- END NAV -->
 
-    <!-- START MAIN -->
-    <section class="section">
-        <div class="container">
-EOT;
+      <!-- START MAIN -->
+      <section class="section">
+          <div class="container">
+  EOT;
+  } else {
+    // User is logged in
+    echo <<<EOT
+      <!-- START NAV -->
+        <nav class="navbar is-light">
+          <div class="container">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="index.php">
+                <span class="icon is-large">
+                  <i class="fas fa-home"></i>
+                </span>
+                <span>$siteTitle</span>
+              </a>
+              <div class="navbar-burger burger" data-target="navMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+            <div id="navMenu" class="navbar-menu">
+              <div class="navbar-start">
+                <!-- navbar link go here -->
+              </div>
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="buttons">
+                    <a href="admin.php" class="button">
+                      <span class="icon"><i class="fas fa-user"></i></span>
+                      <span>Profile</span>
+                    </a>
+                    <a href="logout.php" class="button">
+                      <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                      <span>Sign Out</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <!-- END NAV -->
+
+        <!-- START MAIN -->
+        <section class="section">
+            <div class="container">
+
+            <div class="columns">
+                <!-- START LEFT NAV COLUMN-->
+                <div class="column is-one-quarter">
+                    <aside class="menu">
+                        <p class="menu-label"> Admin menu </p>
+                        <ul class="menu-list">
+                            <li><a href="admin.php" class="is-active"> Admin </a></li>
+                            <li><a href="profile.php"> Profile </a></li>
+                            <li><a href="polls.php"> Polls </a></li>
+                            <li><a href="contacts.php"> Contacts </a></li>
+                        </ul>
+                    </aside>
+                </div>
+                <!-- END LEFT NAV COLUMN-->
+    EOT;
+  }
 }
 
 function template_footer()
 {
-  echo <<<EOT
-        </div>
-    </section>
-    <!-- END MAIN-->
-
-    <!-- START FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <p>Footer content goes here</p>
-        </div>
-    </footer>
-    <!-- END FOOTER -->
-    </body>
-  </html>
-EOT;
+  if (!isset($_SESSION['loggedin'])) {
+    echo <<<EOT
+          </div>
+      </section>
+      <!-- END MAIN-->
+  
+      <!-- START FOOTER -->
+      <footer class="footer">
+          <div class="container">
+              <p>Footer content goes here</p>
+          </div>
+      </footer>
+      <!-- END FOOTER -->
+      </body>
+    </html>
+  EOT;
+  } else {
+    echo <<<EOT
+      </div>
+          </div>
+      </section>
+      <!-- END MAIN-->
+  
+      <!-- START FOOTER -->
+      <footer class="footer">
+          <div class="container">
+              <p>Footer content goes here</p>
+          </div>
+      </footer>
+      <!-- END FOOTER -->
+      </body>
+    </html>
+  EOT;
+  }
 }
