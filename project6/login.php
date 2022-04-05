@@ -104,15 +104,21 @@ if (isset($_POST['username'], $_POST['password'])) {
     </div>
 
     <!-- Button -->
-    <div class="field">
+    <div class="field is-grouped">
         <p class="control">
             <button class="button is-success">
                 Login
             </button>
         </p>
+        <p class="buttons">
+            <a class="button" href="register.php">
+                <span class="icon">
+                    <i class="fas fa-user-plus"></i>
+                </span>
+                <span>Sign Up</span>
+            </a>
+        </p>
     </div>
-
-
 </form>
 <!-- END PAGE CONTENT -->
 
