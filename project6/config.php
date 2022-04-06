@@ -10,6 +10,11 @@ $DATABASE_USER = 'W01113559';
 $DATABASE_PASS = 'Anthonycs!';
 $DATABASE_NAME = 'W01113559';
 
+$adminClass = 'test';
+$profileClass = "";
+$pollsClass = "";
+$contactsClass = "";
+
 // Try to connect to our db
 $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 
@@ -72,7 +77,7 @@ function template_header($title = "Page title")
 EOT;
 }
 
-function template_nav($siteTitle = "Site Title")
+function template_nav($siteTitle = "Site Title", $correct_answer = "admin.php")
 {
   if (!isset($_SESSION['loggedin'])) {
     // User is not logged in
