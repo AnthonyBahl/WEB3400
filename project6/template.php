@@ -6,6 +6,8 @@
 <?php
 require 'config.php';
 
+$responses = [];
+
 //additional php code for this page goes here
 
 ?>
@@ -15,7 +17,14 @@ require 'config.php';
 
     <!-- START PAGE CONTENT -->
     <h1 class="title">Page Heading</h1>
-    <p>This is where page content goes.</p>
+
+    <!-- Response -->
+    <?php if($responses) :?>
+                <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
+                    echo "<br>";
+                    var_dump($_POST);?></p>
+            <?php endif; ?>
+
     <!-- END PAGE CONTENT -->
 
 <?= template_footer() ?>

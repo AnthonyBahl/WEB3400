@@ -4,6 +4,8 @@ require 'config.php';
 // Start the session
 session_start();
 
+$responses = [];
+
 // If the user is not logged in redirect them to the login page
 if (!isset($_SESSION['loggedin'])) {
     header('Location: login.php');
@@ -23,6 +25,13 @@ $stmt->close();
 
 <?= template_header('Profile') ?>
 <?= template_nav('Site Title') ?>
+
+<!-- Response -->
+<?php if($responses) :?>
+            <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
+                echo "<br>";
+                var_dump($_POST);?></p>
+        <?php endif; ?>
 
     <!-- START PAGE CONTENT -->
     <table class="table">

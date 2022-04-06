@@ -6,6 +6,8 @@
 <?php
 require 'config.php';
 
+$responses = [];
+
 //connect to our database using pdo
 $pdo = pdo_connect_mysql();
 
@@ -19,6 +21,13 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?= template_header('Polls') ?>
 <?= template_nav('Site Title') ?>
+
+<!-- Response -->
+<?php if($responses) :?>
+            <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
+                echo "<br>";
+                var_dump($_POST);?></p>
+        <?php endif; ?>
 
     <!-- START PAGE CONTENT -->
     <h1 class="title">Polls</h1>

@@ -6,12 +6,21 @@
 <?php
 require 'config.php';
 
+$responses = [];
+
 //additional php code for this page goes here
 
 ?>
 
 <?= template_header('Page Title') ?>
 <?= template_nav('Site Title') ?>
+
+<!-- Response -->
+<?php if($responses) :?>
+            <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
+                echo "<br>";
+                var_dump($_POST);?></p>
+        <?php endif; ?>
 
     <!-- START PAGE CONTENT -->
     <h1 class="title">Welcome</h1>

@@ -31,9 +31,6 @@ if (!isset($_SESSION['loggedin'])) {
             <?php echo implode('<br>', $responses); ?>
         </p>
     <?php endif; ?>
-
-
-
     <!-- END PAGE CONTENT -->
 </div>
 

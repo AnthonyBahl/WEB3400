@@ -57,6 +57,13 @@ if (!empty($_POST) && isset($_GET['id'])) {
 <?= template_header('Page Title') ?>
 <?= template_nav('Site Title') ?>
 
+<!-- Response -->
+<?php if($responses) :?>
+            <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
+                echo "<br>";
+                var_dump($_POST);?></p>
+        <?php endif; ?>
+
     <!-- START PAGE CONTENT -->
     <h1 class="title">Vote for:</h1>
     <h2 class="subtitle"><?= $poll['title']?></h2>
