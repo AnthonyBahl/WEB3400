@@ -15,7 +15,7 @@ require 'config.php';
 
     <!-- START PAGE CONTENT -->
     <h1 class="title">Welcome</h1>
-    <p>This is where page content goes.</p>
+    <h2 class="subtitle">This is where page content goes.</h2>
     <!-- END PAGE CONTENT -->
 
 <?= template_footer() ?>

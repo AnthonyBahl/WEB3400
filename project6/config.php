@@ -48,6 +48,11 @@ function getMyUrl()
   return 'https://' . preg_replace($regex_pattern, '$1', $url);
 }
 
+function checkCurrentPage() {
+  $URL = $_SERVER['PHP_SELF'];
+  return substr($URL, strrpos($URL, "/") + 1);
+}
+
 function template_header($title = "Page title")
 {
   echo <<<EOT
@@ -171,7 +176,7 @@ function template_nav($siteTitle = "Site Title")
                     <aside class="menu">
                         <p class="menu-label"> Admin menu </p>
                         <ul class="menu-list">
-                            <li><a href="admin.php" class="is-active"> Admin </a></li>
+                            <li><a href="admin.php"> Admin </a></li>
                             <li><a href="profile.php"> Profile </a></li>
                             <li><a href="polls.php"> Polls </a></li>
                             <li><a href="contacts.php"> Contacts </a></li>

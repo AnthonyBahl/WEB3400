@@ -25,21 +25,30 @@ $stmt->close();
 <?= template_nav('Site Title') ?>
 
     <!-- START PAGE CONTENT -->
-    <h1 class="title">Profile</h1>
-    <h2 class="subtitle">Your account details are below.</h2>
     <table class="table">
-        <tr>
-            <td>Username:</td>
-            <td><?=$_SESSION['name']?></td>
-        </tr>
-        <tr>
-            <td>Password Hash:</td>
-            <td><?=$password?></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td><?=$email?></td>
-        </tr>
+        <thead>
+            <tr>
+                <td colspan="2">
+                <h2 class="subtitle">
+                    Your account details are below.
+                </h2>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Username:</td>
+                <td><?=$_SESSION['name']?></td>
+            </tr>
+            <tr>
+                <td>Password Hash:</td>
+                <td><?=$password?></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><?=$email?></td>
+            </tr>
+        </tbody>
     </table>
     <!-- END PAGE CONTENT -->
 
