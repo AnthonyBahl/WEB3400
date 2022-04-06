@@ -7,7 +7,7 @@
 require 'config.php';
 
 $pdo = pdo_connect_mysql();
-$responses =[];
+$responses = [];
 
 if (!empty($_POST)) {
     $title = isset($_POST['title']) ? $_POST['title'] : '';
@@ -27,7 +27,6 @@ if (!empty($_POST)) {
     }
 
     $responses[] = "Your poll was created successfully! <a href='polls.php'>Click Here</a> to return to the polls page.";
-
 }
 
 ?>
@@ -35,38 +34,46 @@ if (!empty($_POST)) {
 <?= template_header('Create Poll') ?>
 <?= template_nav('Site Title') ?>
 
-    <!-- START PAGE CONTENT -->
-    <h1 class="title">Create Poll</h1>
-    <?php if ($responses) : ?>
-        <p class="notification is-danger is-light">
-            <?php echo implode('<br>', $responses); ?>
-        </p>
-    <?php endif; ?>
-    <form action="" method="post">
-        <div class="field">
-            <label class="label" for="title">Title</label>
-            <div class="control">
-                <input id="title" class="input" name="title" placeholder="Poll Title">
-            </div>
+<!-- START PAGE CONTENT -->
+<h1 class="title">Create Poll</h1>
+<?php if ($responses) : ?>
+    <p class="notification is-danger is-light">
+        <?php echo implode('<br>', $responses); ?>
+    </p>
+<?php endif; ?>
+<form action="" method="post">
+    <div class="field">
+        <label class="label" for="title">Title</label>
+        <div class="control">
+            <input id="title" class="input" name="title" placeholder="Poll Title">
         </div>
-        <div class="field">
-            <label class="label" for="desc">Description</label>
-            <div class="control">
-                <input id="desc" class="input" name="desc" placeholder="Poll Description">
-            </div>
+    </div>
+    <div class="field">
+        <label class="label" for="desc">Description</label>
+        <div class="control">
+            <input id="desc" class="input" name="desc" placeholder="Poll Description">
         </div>
-        <div class="field">
-            <label class="label" for="answers">Answers (one answer per line)</label>
-            <div class="control">
-                <textarea class="textarea" name="answers" id="answers" placeholder="Answers go here..."></textarea>
-            </div>
+    </div>
+    <div class="field">
+        <label class="label" for="answers">Answers (one answer per line)</label>
+        <div class="control">
+            <textarea class="textarea" name="answers" id="answers" placeholder="Answers go here..."></textarea>
         </div>
+    </div>
+    <div class="field is-grouped is-grouped-left">
         <div class="field">
             <div class="control">
                 <button class="button is-link">Create Poll</button>
             </div>
         </div>
-    </form>
-    <!-- END PAGE CONTENT -->
+        <!-- Cancel Button -->
+        <p class="control">
+            <a href="polls.php" class="button is-light">
+                Cancel
+            </a>
+        </p>
+    </div>
+</form>
+<!-- END PAGE CONTENT -->
 
 <?= template_footer() ?>

@@ -157,7 +157,7 @@ function template_nav($siteTitle = "Site Title", $correct_answer = "admin.php")
                   <div class="buttons">
                     <a href="admin.php" class="button">
                       <span class="icon"><i class="fas fa-user"></i></span>
-                      <span>Profile</span>
+                      <span>Admin</span>
                     </a>
                     <a href="logout.php" class="button">
                       <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
@@ -175,20 +175,7 @@ function template_nav($siteTitle = "Site Title", $correct_answer = "admin.php")
         <section class="section">
             <div class="container">
 
-            <div class="columns">
-                <!-- START LEFT NAV COLUMN-->
-                <div class="column is-one-quarter">
-                    <aside class="menu">
-                        <p class="menu-label"> Admin menu </p>
-                        <ul class="menu-list">
-                            <li><a href="admin.php"> Admin </a></li>
-                            <li><a href="profile.php"> Profile </a></li>
-                            <li><a href="polls.php"> Polls </a></li>
-                            <li><a href="contacts.php"> Contacts </a></li>
-                        </ul>
-                    </aside>
-                </div>
-                <!-- END LEFT NAV COLUMN-->
+            
     EOT;
   }
 }

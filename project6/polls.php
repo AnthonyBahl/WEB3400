@@ -8,6 +8,15 @@ require 'config.php';
 
 $responses = [];
 
+// Start the session
+session_start();
+
+// If the user is not logged in redirect them to the login page
+if (!isset($_SESSION['loggedin'])) {
+    header('Location: login.php');
+    exit;
+}
+
 //connect to our database using pdo
 $pdo = pdo_connect_mysql();
 
@@ -21,6 +30,22 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?= template_header('Polls') ?>
 <?= template_nav('Site Title') ?>
+<div class="columns">
+
+
+<!-- START LEFT NAV COLUMN-->
+<div class="column is-one-quarter">
+    <aside class="menu">
+        <p class="menu-label"> Admin menu </p>
+        <ul class="menu-list">
+            <li><a href="admin.php"> Admin </a></li>
+            <li><a href="profile.php"> Profile </a></li>
+            <li><a href="polls.php" class="is-active"> Polls </a></li>
+            <li><a href="contacts.php"> Contacts </a></li>
+        </ul>
+    </aside>
+</div>
+<!-- END LEFT NAV COLUMN-->
 
 <!-- Response -->
 <?php if($responses) :?>
@@ -30,11 +55,13 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
 
     <!-- START PAGE CONTENT -->
-    <h1 class="title">Polls</h1>
-    <p class="subtitle">Welcome, here is our list of polls.</p>
-    <a href="poll-create.php" class="button is-success">Create a New Poll</a>
     <table class="table">
         <thead>
+            <tr>
+                <td colspan="4">
+                    <h1 class="title">Polls</h1>
+                </td>
+            </tr>
             <tr>
                 <td>#</td>
                 <td>Title</td>
@@ -55,7 +82,14 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </tr>
             <?php endforeach?>
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    <a href="poll-create.php" class="button is-success">Create a New Poll</a>
+                </td>
+            </tr>
+        </tfoot>
     </table>
     <!-- END PAGE CONTENT -->
-
+            </div>
 <?= template_footer() ?>

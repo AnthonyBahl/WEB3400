@@ -1,10 +1,10 @@
 <?php
 require 'config.php';
 
+$responses = [];
+
 // Start the session
 session_start();
-
-$responses = [];
 
 // If the user is not logged in redirect them to the login page
 if (!isset($_SESSION['loggedin'])) {
@@ -25,6 +25,22 @@ $stmt->close();
 
 <?= template_header('Profile') ?>
 <?= template_nav('Site Title') ?>
+<div class="columns">
+
+
+<!-- START LEFT NAV COLUMN-->
+<div class="column is-one-quarter">
+    <aside class="menu">
+        <p class="menu-label"> Admin menu </p>
+        <ul class="menu-list">
+            <li><a href="admin.php"> Admin </a></li>
+            <li><a href="profile.php" class="is-active"> Profile </a></li>
+            <li><a href="polls.php"> Polls </a></li>
+            <li><a href="contacts.php"> Contacts </a></li>
+        </ul>
+    </aside>
+</div>
+<!-- END LEFT NAV COLUMN-->
 
 <!-- Response -->
 <?php if($responses) :?>
@@ -60,5 +76,5 @@ $stmt->close();
         </tbody>
     </table>
     <!-- END PAGE CONTENT -->
-
+</div>
 <?= template_footer() ?>

@@ -6,25 +6,31 @@ $responses = [];
 // use PDO to connect to our database
 $pdo = pdo_connect_mysql();
 
-if (isset($_POST['name'], $_POST['email'], $_POST['phone'])) {
-    // Check to see if the contact already exists
-    if ($stmt = $pdo->prepare('SELECT * FROM contacts WHERE email = ?')) {
-        $stmt->execute([$_POST['email']]);
-        if ($stmt->rowCount() > 0) {
-            $responses[] = "There is already a record with that email.";
-        } else {
+if (isset($_POST['name'], $_POST['email'], $_POST['phone'], $_POST['title'])) {
+    //check if all fields are completed
+    if (empty($_POST['name']) || empty($_POST['email']) ||  empty($_POST['phone']) || empty($_POST['title'])) {
+        $responses[] = "Please complete all fields";
+    } else {
+        // get the contact from the database
+        $stmt = $pdo->prepare('SELECT * FROM contacts WHERE name = ?');
+        $stmt->execute([$_POST['name']]);
+        $contact = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($contact) {
+            exit('A contact already exists with that name.');
+        }
+        if (!empty($_POST)) {
+            //PHP ternary operator
+            // result = condition ? 'trueresult' : 'falseresult';
             $name = isset($_POST['name']) ? $_POST['name'] : '';
             $email = isset($_POST['email']) ? $_POST['email'] : '';
             $phone = isset($_POST['phone']) ? $_POST['phone'] : '';
             $title = isset($_POST['title']) ? $_POST['title'] : '';
 
-            $stmt = $pdo->prepare('INSERT INTO `contacts`(`name`, `email`, `phone`, `title`, `created`) VALUES (?,?,?,?,CURRENT_TIMESTAMP)');
+            $stmt = $pdo->prepare('INSERT INTO contacts(name, email, phone, title) VALUES (?,?,?,?)');
             $stmt->execute([$name, $email, $phone, $title]);
-            $responses[] = 'The record was created.';
+            //$responses[] = 'The record was updated.';
             header('Location: contacts.php');
         }
-    } else {
-        $responses = "Could not prepare SQL statement.";
     }
 }
 
@@ -37,11 +43,9 @@ if (isset($_POST['name'], $_POST['email'], $_POST['phone'])) {
 <h1 class="title">Create New Contact</h1>
 
 <!-- Response -->
-<?php if($responses) :?>
-            <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
-                echo "<br>";
-                var_dump($_POST);?></p>
-        <?php endif; ?>
+<?php if ($responses) : ?>
+    <p class="notification is-danger is-light"><?php echo implode('<br>', $responses); ?></p>
+<?php endif; ?>
 
 <form action="" method="post">
     <!-- Name -->
@@ -91,11 +95,11 @@ if (isset($_POST['name'], $_POST['email'], $_POST['phone'])) {
                 Create
             </button>
         </p>
-    <!-- Cancel Button -->
+        <!-- Cancel Button -->
         <p class="control">
-            <button class="button is-light">
+            <a href="contacts.php" class="button is-light">
                 Cancel
-            </button>
+            </a>
         </p>
     </div>
 </form>

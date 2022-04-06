@@ -24,8 +24,23 @@ if (!isset($_SESSION['loggedin'])) {
 <?= template_header('Page Title') ?>
 <?= template_nav('Site Title') ?>
 
+<div class="columns">
+                <!-- START LEFT NAV COLUMN-->
+                <div class="column is-one-quarter">
+                    <aside class="menu">
+                        <p class="menu-label"> Admin menu </p>
+                        <ul class="menu-list">
+                            <li><a href="admin.php" class="is-active"> Admin </a></li>
+                            <li><a href="profile.php"> Profile </a></li>
+                            <li><a href="polls.php"> Polls </a></li>
+                            <li><a href="contacts.php"> Contacts </a></li>
+                        </ul>
+                    </aside>
+                </div>
+                <!-- END LEFT NAV COLUMN-->
+
     <!-- START PAGE CONTENT -->
-    <h1 class="title">Home</h1>
+    <h1 class="title">Admin Center</h1>
     <?php if ($responses) : ?>
         <p class="notification is-danger is-light">
             <?php echo implode('<br>', $responses); ?>
@@ -33,5 +48,5 @@ if (!isset($_SESSION['loggedin'])) {
     <?php endif; ?>
     <!-- END PAGE CONTENT -->
 </div>
-
+    </div>
 <?= template_footer() ?>

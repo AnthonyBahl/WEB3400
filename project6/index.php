@@ -23,7 +23,7 @@ $responses = [];
         <?php endif; ?>
 
     <!-- START PAGE CONTENT -->
-    <h1 class="title">Welcome</h1>
+    <h1 class="title">Welcome Home</h1>
     <h2 class="subtitle">This is where page content goes.</h2>
     <!-- END PAGE CONTENT -->
 

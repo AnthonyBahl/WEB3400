@@ -99,9 +99,9 @@ if (isset($_GET['id'])) {
             </p>
         <!-- Cancel Button -->
             <p class="control">
-                <button class="button is-light">
-                    Cancel
-                </button>
+            <a href="contacts.php" class="button is-light">
+                Cancel
+            </a>
             </p>
         </div>
     </form>
