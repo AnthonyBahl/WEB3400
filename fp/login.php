@@ -54,7 +54,7 @@ if (isset($_POST['username'], $_POST['password'])) {
                     //Create a welcome message
                     $responses[] = "Welcome " . $_SESSION['name'] . "!";
                     // Redirect to the profile page
-                    header('Location: admin.php');
+                    header('Location: profile.php');
                 } else {
                     // Incorrect password
                     $responses[] = 'Incorrect password!';

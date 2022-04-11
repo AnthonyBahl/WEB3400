@@ -79,8 +79,12 @@ EOT;
 
 function template_nav($siteTitle = "Site Title", $correct_answer = "admin.php")
 {
-  if (!isset($_SESSION['loggedin'])) {
-    // User is not logged in
+  $logInOutlink = '';
+  if (isset($_SESSION['loggedin'])) {
+    $logInOutlink = 'out';
+  } else {
+    $logInOutlink = 'in';
+  }
     echo <<<EOT
     <!-- START NAV -->
       <nav class="navbar is-light">
@@ -105,17 +109,13 @@ function template_nav($siteTitle = "Site Title", $correct_answer = "admin.php")
             <div class="navbar-end">
               <div class="navbar-item">
                 <div class="buttons">
-                  <a href="index.php" class="button">
-                    <span class="icon"><i class="fas fa-user"></i></span>
-                    <span>Home</span>
-                  </a>
                   <a href="contact.php" class="button">
                     <span class="icon"><i class="fas fa-address-book"></i></span>
                     <span>Contact Us</span>
                   </a>
-                  <a href="login.php" class="button">
-                    <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
-                    <span>Login</span>
+                  <a href="log$logInOutlink.php" class="button">
+                    <span class="icon"><i class="fas fa-sign-$logInOutlink-alt"></i></span>
+                    <span>Log$logInOutlink</span>
                   </a>
                 </div>
               </div>
@@ -129,55 +129,6 @@ function template_nav($siteTitle = "Site Title", $correct_answer = "admin.php")
       <section class="section">
           <div class="container">
   EOT;
-  } else {
-    // User is logged in
-    echo <<<EOT
-      <!-- START NAV -->
-        <nav class="navbar is-light">
-          <div class="container">
-            <div class="navbar-brand">
-              <a class="navbar-item" href="index.php">
-                <span class="icon is-large">
-                  <i class="fas fa-home"></i>
-                </span>
-                <span>$siteTitle</span>
-              </a>
-              <div class="navbar-burger burger" data-target="navMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-            <div id="navMenu" class="navbar-menu">
-              <div class="navbar-start">
-                <!-- navbar link go here -->
-              </div>
-              <div class="navbar-end">
-                <div class="navbar-item">
-                  <div class="buttons">
-                    <a href="admin.php" class="button">
-                      <span class="icon"><i class="fas fa-user"></i></span>
-                      <span>Admin</span>
-                    </a>
-                    <a href="logout.php" class="button">
-                      <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
-                      <span>Sign Out</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-        <!-- END NAV -->
-
-        <!-- START MAIN -->
-        <section class="section">
-            <div class="container">
-
-            
-    EOT;
-  }
 }
 
 function template_footer()
