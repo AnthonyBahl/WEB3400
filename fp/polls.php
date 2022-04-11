@@ -30,66 +30,48 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?= template_header('Polls') ?>
 <?= template_nav('Site Title') ?>
+
+<!-- START PAGE CONTENT -->
 <div class="columns">
-
-
-<!-- START LEFT NAV COLUMN-->
-<div class="column is-one-quarter">
-    <aside class="menu">
-        <p class="menu-label"> Admin menu </p>
-        <ul class="menu-list">
-            <li><a href="admin.php"> Admin </a></li>
-            <li><a href="profile.php"> Profile </a></li>
-            <li><a href="polls.php" class="is-active"> Polls </a></li>
-            <li><a href="contacts.php"> Contacts </a></li>
-        </ul>
-    </aside>
-</div>
-<!-- END LEFT NAV COLUMN-->
-
-<!-- Response -->
-<?php if($responses) :?>
-            <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
-                echo "<br>";
-                var_dump($_POST);?></p>
+    <!-- START LEFT NAV COLUMN -->
+    <div class="column is-one-fifth">
+        <?= admin_nav(basename(__FILE__)) ?>
+    </div>
+    <!-- END LEFT NAV COLUMN -->
+    <!-- START RIGHT CONTENT COLUMN-->
+    <div class="column">
+        <h1 class="title">Polls</h1>
+        <?php if ($responses) : ?>
+            <p class="notification is-danger is-light">
+                <?php echo implode('<br>', $responses); ?>
+            </p>
         <?php endif; ?>
-
-    <!-- START PAGE CONTENT -->
-    <table class="table">
-        <thead>
-            <tr>
-                <td colspan="4">
-                    <h1 class="title">Polls</h1>
-                </td>
-            </tr>
-            <tr>
-                <td>#</td>
-                <td>Title</td>
-                <td>Answers</td>
-                <td>Action</td>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach($polls as $poll) : ?>
+        <a href="poll-create.php" class="button is-success">Create a New Poll</a>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td><?=$poll['id']?></td>
-                    <td><?=$poll['title']?></td>
-                    <td><?=$poll['answers']?></td>
-                    <td>
-                        <a href="poll-vote.php?id=<?=$poll['id']?>" class="button"><i class="fas fa-poll"></i></a>
-                        <a href="poll-delete.php?id=<?=$poll['id']?>" class="button"><i class="fas fa-trash"></i></a>
-                    </td>
+                    <td>#</td>
+                    <td>Title</td>
+                    <td>Answers</td>
+                    <td>Action</td>
                 </tr>
-            <?php endforeach?>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="4">
-                    <a href="poll-create.php" class="button is-success">Create a New Poll</a>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
-    <!-- END PAGE CONTENT -->
-            </div>
+            </thead>
+            <tbody>
+                <?php foreach ($polls as $poll) : ?>
+                    <tr>
+                        <td><?= $poll['id'] ?></td>
+                        <td><?= $poll['title'] ?></td>
+                        <td><?= $poll['answers'] ?></td>
+                        <td>
+                            <a href="poll-vote.php?id=<?= $poll['id'] ?>" class="button"><i class="fas fa-poll"></i></a>
+                            <a href="poll-delete.php?id=<?= $poll['id'] ?>" class="button"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </div>
+    <!-- END RIGHT CONTENT COLUMN-->
+</div>
+<!-- END PAGE CONTENT -->
 <?= template_footer() ?>

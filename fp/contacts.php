@@ -21,34 +21,23 @@ $stmt->execute();
 
 <?= template_header('Read Contacts') ?>
 <?= template_nav('Site Title') ?>
+
+<!-- START PAGE CONTENT -->
 <div class="columns">
-
-
-    <!-- START LEFT NAV COLUMN-->
-    <div class="column is-one-quarter">
-        <aside class="menu">
-            <p class="menu-label"> Admin menu </p>
-            <ul class="menu-list">
-                <li><a href="admin.php"> Admin </a></li>
-                <li><a href="profile.php"> Profile </a></li>
-                <li><a href="polls.php"> Polls </a></li>
-                <li><a href="contacts.php" class="is-active"> Contacts </a></li>
-            </ul>
-        </aside>
+    <!-- START LEFT NAV COLUMN -->
+    <div class="column is-one-fifth">
+        <?= admin_nav(basename(__FILE__)) ?>
     </div>
-    <!-- END LEFT NAV COLUMN-->
-    <div>
-
-        <!-- START PAGE CONTENT -->
+    <!-- END LEFT NAV COLUMN -->
+    <!-- START RIGHT CONTENT COLUMN-->
+    <div class="column">
         <h1 class="title">Read Contacts</h1>
-
-        <!-- Response -->
         <?php if ($responses) : ?>
-            <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
-                                                        echo "<br>";
-                                                        var_dump($_POST); ?></p>
+            <p class="notification is-danger is-light">
+                <?php echo implode('<br>', $responses); ?>
+            </p>
         <?php endif; ?>
-        <hr />
+
         <a href='contact-create.php' class='button is-primary'>
             <span>Create Contact</span>
         </a>
@@ -90,7 +79,8 @@ $stmt->execute();
                 } ?>
             </tbody>
         </table>
-        <!-- END PAGE CONTENT -->
     </div>
+    <!-- END RIGHT CONTENT COLUMN-->
 </div>
+<!-- END PAGE CONTENT -->
 <?= template_footer() ?>

@@ -24,29 +24,23 @@ if (!isset($_SESSION['loggedin'])) {
 <?= template_header('Page Title') ?>
 <?= template_nav('Site Title') ?>
 
+<!-- START PAGE CONTENT -->
 <div class="columns">
-                <!-- START LEFT NAV COLUMN-->
-                <div class="column is-one-quarter">
-                    <aside class="menu">
-                        <p class="menu-label"> Admin menu </p>
-                        <ul class="menu-list">
-                            <li><a href="admin.php" class="is-active"> Admin </a></li>
-                            <li><a href="profile.php"> Profile </a></li>
-                            <li><a href="polls.php"> Polls </a></li>
-                            <li><a href="contacts.php"> Contacts </a></li>
-                        </ul>
-                    </aside>
-                </div>
-                <!-- END LEFT NAV COLUMN-->
-
-    <!-- START PAGE CONTENT -->
-    <h1 class="title">Admin Center</h1>
-    <?php if ($responses) : ?>
-        <p class="notification is-danger is-light">
-            <?php echo implode('<br>', $responses); ?>
-        </p>
-    <?php endif; ?>
-    <!-- END PAGE CONTENT -->
-</div>
+    <!-- START LEFT NAV COLUMN -->
+    <div class="column is-one-fifth">
+        <?= admin_nav(basename(__FILE__)) ?>
     </div>
+    <!-- END LEFT NAV COLUMN -->
+    <!-- START RIGHT CONTENT COLUMN-->
+    <div class="column">
+        <h1 class="title">Admin Center</h1>
+        <?php if ($responses) : ?>
+            <p class="notification is-danger is-light">
+                <?php echo implode('<br>', $responses); ?>
+            </p>
+        <?php endif; ?>
+    </div>
+    <!-- END RIGHT CONTENT COLUMN-->
+</div>
+<!-- END PAGE CONTENT -->
 <?= template_footer() ?>

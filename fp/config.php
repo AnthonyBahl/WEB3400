@@ -15,6 +15,8 @@ $profileClass = "";
 $pollsClass = "";
 $contactsClass = "";
 
+$responses = [];
+
 // Try to connect to our db
 $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 
@@ -35,12 +37,11 @@ function pdo_connect_mysql()
   try {
     return new PDO(
       'mysql:host=' . $DATABASE_HOST .
-      ';dbname=' . $DATABASE_NAME .
-      ';charset=utf8',
+        ';dbname=' . $DATABASE_NAME .
+        ';charset=utf8',
       $DATABASE_USER,
       $DATABASE_PASS
     );
-
   } catch (PDOException $exception) {
     die('PDO Failed to connect to the database.');
   }
@@ -53,7 +54,8 @@ function getMyUrl()
   return 'https://' . preg_replace($regex_pattern, '$1', $url);
 }
 
-function checkCurrentPage() {
+function checkCurrentPage()
+{
   $URL = $_SERVER['PHP_SELF'];
   return substr($URL, strrpos($URL, "/") + 1);
 }
@@ -77,6 +79,42 @@ function template_header($title = "Page title")
 EOT;
 }
 
+function admin_nav($fileName)
+{
+  $adminActive = '';
+  $profileActive = '';
+  $pollsActive = '';
+  $contactsActive = '';
+
+  switch ($fileName) {
+    case 'admin.php':
+      $adminActive = 'is-active';
+      break;
+    case 'profile.php':
+      $profileActive = 'is-active';
+      break;
+    case 'polls.php':
+      $pollsActive = 'is-active';
+      break;
+    case 'contacts.php':
+      $contactsActive = 'is-active';
+      break;
+  }
+
+  echo <<<EOT
+  <!-- START ADMIN NAV -->
+  <aside class="menu">
+      <p class="menu-label"> Admin menu </p>
+      <ul class="menu-list">
+          <li><a href="admin.php" class="$adminActive"> Admin </a></li>
+          <li><a href="profile.php" class="$profileActive"> Profile </a></li>
+          <li><a href="polls.php" class="$pollsActive"> Polls </a></li>
+          <li><a href="contacts.php" class="$contactsActive"> Contacts </a></li>
+      </ul>
+  </aside>
+  EOT;
+}
+
 function template_nav($siteTitle = "Site Title", $correct_answer = "admin.php")
 {
   $logInOutlink = '';
@@ -85,7 +123,7 @@ function template_nav($siteTitle = "Site Title", $correct_answer = "admin.php")
   } else {
     $logInOutlink = 'in';
   }
-    echo <<<EOT
+  echo <<<EOT
     <!-- START NAV -->
       <nav class="navbar is-light">
         <div class="container">
