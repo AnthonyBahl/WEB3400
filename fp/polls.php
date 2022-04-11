@@ -63,8 +63,9 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <td><?= $poll['title'] ?></td>
                         <td><?= $poll['answers'] ?></td>
                         <td>
-                            <a href="poll-vote.php?id=<?= $poll['id'] ?>" class="button"><i class="fas fa-poll"></i></a>
-                            <a href="poll-delete.php?id=<?= $poll['id'] ?>" class="button"><i class="fas fa-trash"></i></a>
+                            <a href="poll-vote.php?id=<?= $poll['id'] ?>" class="button is-success"><i class="fa-solid fa-check-to-slot"></i></a>
+                            <a href="poll-result.php?id=<?= $poll['id'] ?>" class="button is-info"><i class="fa-solid fa-square-poll-horizontal"></i></a>
+                            <a href="poll-delete.php?id=<?= $poll['id'] ?>" class="button is-danger"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
                 <?php endforeach ?>
