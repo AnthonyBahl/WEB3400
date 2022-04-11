@@ -1,8 +1,6 @@
 <?php
 require 'config.php';
 
-$responses = [];
-
 // use PDO to connect to our database
 $pdo = pdo_connect_mysql();
 
@@ -38,26 +36,25 @@ if (isset($_GET['id'])) {
 <?= template_header('Delete Contact') ?>
 <?= template_nav('Site Title') ?>
 
-    <!-- START PAGE CONTENT -->
-    <h1 class="title">Delete Contact</h1>
-    
-    <!-- Response -->
-    <?php if ($responses) : ?>
-        <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
-                                                echo "<br>";
-                                                var_dump($_POST); ?></p>
-    <?php endif; ?>
+<!-- START PAGE CONTENT -->
+<h1 class="title">Delete Contact</h1>
+<!-- Responses -->
+<?php if ($responses) : ?>
+    <p class="notification is-danger is-light">
+        <?php echo implode('<br>', $responses); ?>
+    </p>
+<?php endif; ?>
 
-    <!-- <?php if (isset($_GET['id'])) : ?> -->
-        <h2 class="subtitle">Are you sure you want to delete contact #
-            <?=$contact['id']?> - <?=$contact['name']?>?
-        </h2>
+<!-- <?php if (isset($_GET['id'])) : ?> -->
+<h2 class="subtitle">Are you sure you want to delete contact #
+    <?= $contact['id'] ?> - <?= $contact['name'] ?>?
+</h2>
 
-    <div class="buttons">
-        <a href="?id=<?= $contact['id'] ?>&confirm=yes" class="button is-success">Yes</a>
-        <a href="?id=<?= $contact['id'] ?>&confirm=no" class="button is-danger">No</a>
-    </div>
-    <!-- <?php endif; ?> -->
-    <!-- END PAGE CONTENT -->
+<div class="buttons">
+    <a href="?id=<?= $contact['id'] ?>&confirm=yes" class="button is-success">Yes</a>
+    <a href="?id=<?= $contact['id'] ?>&confirm=no" class="button is-danger">No</a>
+</div>
+<!-- <?php endif; ?> -->
+<!-- END PAGE CONTENT -->
 
 <?= template_footer() ?>

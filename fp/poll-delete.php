@@ -6,8 +6,6 @@
 <?php
 require 'config.php';
 
-$responses = [];
-
 // use PDO to connect to our database
 $pdo = pdo_connect_mysql();
 
@@ -27,11 +25,11 @@ if (isset($_GET['id'])) {
             // Delete the record
             $stmt = $pdo->prepare('DELETE FROM `polls` WHERE `id` = ?');
             $stmt->execute([$_GET['id']]);
-            
+
             // Delete the answers
             $stmt = $pdo->prepare('DELETE FROM `poll_answers` WHERE `poll_id` = ?');
             $stmt->execute([$_GET['id']]);
-            
+
             $responses[] = "You have deleted the poll! <a href='polls.php'>Return to polls page</a>";
         } else {
             // Redirect backto contacts
@@ -47,22 +45,21 @@ if (isset($_GET['id'])) {
 <?= template_header('Delete Poll') ?>
 <?= template_nav('Site Title') ?>
 
-    <!-- START PAGE CONTENT -->
-    <h1 class="title">Delete Poll</h1>
-    <p>Are you sure you want to delete poll?</p>
-    <?= $poll['id'] ?> - <?= $poll['title'] ?> ?
-    
-    <!-- Response -->
-    <?php if ($responses) : ?>
-        <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
-                                                echo "<br>";
-                                                var_dump($_POST); ?></p>
-    <?php endif; ?>
+<!-- START PAGE CONTENT -->
+<h1 class="title">Delete Poll</h1>
+<!-- Responses -->
+<?php if ($responses) : ?>
+    <p class="notification is-danger is-light">
+        <?php echo implode('<br>', $responses); ?>
+    </p>
+<?php endif; ?>
+<p>Are you sure you want to delete poll?</p>
+<?= $poll['id'] ?> - <?= $poll['title'] ?> ?
 
-    <div class="buttons">
-        <a href="?id=<?= $poll['id'] ?>&confirm=yes" class="button is-success">Yes</a>
-        <a href="?id=<?= $poll['id'] ?>&confirm=no" class="button is-danger">No</a>
-    </div>
-    <!-- END PAGE CONTENT -->
+<div class="buttons">
+    <a href="?id=<?= $poll['id'] ?>&confirm=yes" class="button is-success">Yes</a>
+    <a href="?id=<?= $poll['id'] ?>&confirm=no" class="button is-danger">No</a>
+</div>
+<!-- END PAGE CONTENT -->
 
 <?= template_footer() ?>

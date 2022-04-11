@@ -8,8 +8,6 @@ require 'config.php';
 
 $pdo = pdo_connect_mysql();
 
-$responses = [];
-
 // Check if there was an ID passed
 if (isset($_GET['id'])) {
 
@@ -31,7 +29,6 @@ if (isset($_GET['id'])) {
         foreach ($poll_answers as $poll_answer) {
             $total_votes += $poll_answer['votes'];
         }
-
     } else {
         $responses[] = "There was an error grabing poll with ID of " . $_GET['id'];
     }
@@ -44,24 +41,23 @@ if (isset($_GET['id'])) {
 <?= template_header('Poll Results') ?>
 <?= template_nav('Site Title') ?>
 
-    <!-- START PAGE CONTENT -->
-    <h1 class="title">Poll Results</h1>
-    <?php if ($responses) : ?>
-        <p class="notification is-danger is-light">
-            <?php echo implode('<br>', $responses); ?>
-        </p>
-    <?php endif; ?>
-    <h2 class="subtitle"><?= $poll['title']?> (Total votes: <?=$total_votes?>)</h2>
+<!-- START PAGE CONTENT -->
+<h1 class="title">Poll Results</h1>
+<!-- Responses -->
+<?php if ($responses) : ?>
+    <p class="notification is-danger is-light">
+        <?php echo implode('<br>', $responses); ?>
+    </p>
+<?php endif; ?>
+<h2 class="subtitle"><?= $poll['title'] ?> (Total votes: <?= $total_votes ?>)</h2>
 
-    <div class="container">
-        <?php foreach ($poll_answers as $poll_answer) :?>
-            <p><?=$poll_answer['title']?> (<?=$poll_answer['votes']?>)</p>
-            <progress class="progress is-info is-large"
-            value="<?= $poll_answer['votes']?>"
-            max="<?= $total_votes?>"></progress>
-        <?php endforeach;?>
-        <a href="polls.php">Return to polls page</a>
-    </div>
-    <!-- END PAGE CONTENT -->
+<div class="container">
+    <?php foreach ($poll_answers as $poll_answer) : ?>
+        <p><?= $poll_answer['title'] ?> (<?= $poll_answer['votes'] ?>)</p>
+        <progress class="progress is-info is-large" value="<?= $poll_answer['votes'] ?>" max="<?= $total_votes ?>"></progress>
+    <?php endforeach; ?>
+    <a href="polls.php">Return to polls page</a>
+</div>
+<!-- END PAGE CONTENT -->
 
 <?= template_footer() ?>

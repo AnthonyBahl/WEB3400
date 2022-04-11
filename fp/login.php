@@ -1,9 +1,6 @@
 <?php
 require 'config.php';
 
-// Create our response message array
-$responses = [];
-
 // Start a user session
 session_start();
 
@@ -74,11 +71,11 @@ if (isset($_POST['username'], $_POST['password'])) {
 
 <!-- START PAGE CONTENT -->
 <h1 class="title">Login</h1>
-
+<!-- Responses -->
 <?php if ($responses) : ?>
-    <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
-                                                echo "<br>";
-                                                var_dump($_POST); ?></p>
+    <p class="notification is-danger is-light">
+        <?php echo implode('<br>', $responses); ?>
+    </p>
 <?php endif; ?>
 
 <form action="" method="post">

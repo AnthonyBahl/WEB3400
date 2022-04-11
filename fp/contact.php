@@ -1,11 +1,8 @@
-<?php // https://icarus.cs.weber.edu/~ab13559/web3400/project0/contact.php ?>
+<?php // https://icarus.cs.weber.edu/~ab13559/web3400/project0/contact.php 
+?>
 
 <?php
 require 'config.php';
-
-// Php to send email (or show the form input) goes here
-// Create an output message
-$responses = [];
 
 //check to see if the form was submitted
 if (isset($_POST['name'], $_POST['email'], $_POST['subject'], $_POST['message'])) {
@@ -27,81 +24,80 @@ if (isset($_POST['name'], $_POST['email'], $_POST['subject'], $_POST['message'])
         $headers = 'From: ' . $from . "\r\n" . 'Reply-To: ' . $_POST['email'] . "\r\n" . 'X-Mailer: PHP/' . phpversion();
 
         // Attempt to send message
-        if (mail($to,$subject,$message,$headers)) {
+        if (mail($to, $subject, $message, $headers)) {
             $responses[] = 'Message sent!';
         } else {
             $responses[] = 'There was an error sending the message!';
-            
         }
-    }    
+    }
 }
 ?>
 
 <?= template_header('Page Title') ?>
 <?= template_nav('Site Title') ?>
 
-    <!-- START PAGE CONTENT -->
-    <h1 class="title">Contact us</h1>
-    <!-- message sent confirmation message goes here -->
-    <?php if($responses) :?>
-                 <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
-                    echo "<br>";
-                    var_dump($_POST);?></p>
-            <?php endif; ?>
-            <!-- contact form using the bulma.io syntax goes here -->
-            <form action="" method="post">
+<!-- START PAGE CONTENT -->
+<h1 class="title">Contact us</h1>
+<!-- Responses -->
+<?php if ($responses) : ?>
+    <p class="notification is-danger is-light">
+        <?php echo implode('<br>', $responses); ?>
+    </p>
+<?php endif; ?>
+<!-- contact form using the bulma.io syntax goes here -->
+<form action="" method="post">
 
-                <!-- Name -->
-                <div class="field">
-                    <label class="label">Name</label>
-                    <div class="control has-icons-left">
-                        <input class="input" type="text" name="name" placeholder="Anthony Bahl" require>
-                        <span class="icon is-left">
-                            <i class="fas fa-user-ninja"></i>
-                        </span>
-                    </div>
-                </div>
+    <!-- Name -->
+    <div class="field">
+        <label class="label">Name</label>
+        <div class="control has-icons-left">
+            <input class="input" type="text" name="name" placeholder="Anthony Bahl" require>
+            <span class="icon is-left">
+                <i class="fas fa-user-ninja"></i>
+            </span>
+        </div>
+    </div>
 
-                <!-- Email -->
-                <div class="field">
-                    <label class="label">Email</label>
-                    <div class="control has-icons-left">
-                        <input class="input" type="email" name="email" placeholder="ex. abahl@example.com" require>
-                        <span class="icon is-left">
-                            <i class="fas fa-at"></i>
-                        </span>
-                    </div>
-                </div>
+    <!-- Email -->
+    <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left">
+            <input class="input" type="email" name="email" placeholder="ex. abahl@example.com" require>
+            <span class="icon is-left">
+                <i class="fas fa-at"></i>
+            </span>
+        </div>
+    </div>
 
-                <!-- Subject -->
-                <div class="field">
-                    <label class="label">Subject</label>
-                    <div class="control">
-                        <input class="input" type="text" name="subject" placeholder="Enter subject here" require>
-                    </div>
-                </div>
+    <!-- Subject -->
+    <div class="field">
+        <label class="label">Subject</label>
+        <div class="control">
+            <input class="input" type="text" name="subject" placeholder="Enter subject here" require>
+        </div>
+    </div>
 
-                <!-- Message -->
-                <div class="field">
-                    <label class="label">Message</label>
-                    <div class="control">
-                        <textarea class="textarea" name="message" placeholder="Let us know what's on your mind..."></textarea>
-                    </div>
-                </div>
+    <!-- Message -->
+    <div class="field">
+        <label class="label">Message</label>
+        <div class="control">
+            <textarea class="textarea" name="message" placeholder="Let us know what's on your mind..."></textarea>
+        </div>
+    </div>
 
-                <!-- Button -->
-                <div class="field">
-                    <div class="control">
-                        <button class="button is-primary">
-                            <span class="icon">
-                                <i class="fas fa-paper-plane"></i>
-                            </span>
-                            <span>Send Message</span>
-                        </button>
-                    </div>
-                </div>
+    <!-- Button -->
+    <div class="field">
+        <div class="control">
+            <button class="button is-primary">
+                <span class="icon">
+                    <i class="fas fa-paper-plane"></i>
+                </span>
+                <span>Send Message</span>
+            </button>
+        </div>
+    </div>
 
-            </form>
-    <!-- END PAGE CONTENT -->
+</form>
+<!-- END PAGE CONTENT -->
 
 <?= template_footer() ?>

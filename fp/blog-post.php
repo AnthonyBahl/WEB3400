@@ -22,6 +22,12 @@ if (isset($_GET['id'])) {
 
 <!-- START PAGE CONTENT -->
 <h1 class="title"><?= $post['title'] ?></h1>
+<!-- Responses -->
+<?php if ($responses) : ?>
+    <p class="notification is-danger is-light">
+        <?php echo implode('<br>', $responses); ?>
+    </p>
+<?php endif; ?>
 <h2 class="subtitle"><?= $post['author_name'] ?> - <?= $post['created'] ?></h2>
 <p class="content"><?= $post['content'] ?></p>
 

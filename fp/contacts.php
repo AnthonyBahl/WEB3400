@@ -1,8 +1,6 @@
 <?php
 require 'config.php';
 
-$responses = [];
-
 // Start the session
 session_start();
 
@@ -32,6 +30,7 @@ $stmt->execute();
     <!-- START RIGHT CONTENT COLUMN-->
     <div class="column">
         <h1 class="title">Read Contacts</h1>
+        <!-- Responses -->
         <?php if ($responses) : ?>
             <p class="notification is-danger is-light">
                 <?php echo implode('<br>', $responses); ?>

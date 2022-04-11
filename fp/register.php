@@ -1,10 +1,8 @@
 <?php
 require 'config.php';
 
-$responses = [];
-
 if (isset($_POST['username'], $_POST['password'], $_POST['email'])) {
-    
+
     // We need to check to see if the username already exists.
     if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
         // Bind parameters (s = string, i = int, b = blob, ect)
@@ -29,7 +27,6 @@ if (isset($_POST['username'], $_POST['password'], $_POST['email'])) {
                 // insteaed we will display the activation link on the page
                 $activation_link = getMyUrl() . '/activate.php?email=' . $_POST['email'] . '&code=' . $uniqid;
                 $responses[] = 'Please click the following link to activate your account: <a href="' . $activation_link . '">' . $activation_link . '</a>';
-
             } else {
                 // Something went wrong with our insert statement
                 $responses[] = 'Could not prepare the insert statement.';
@@ -48,65 +45,64 @@ if (isset($_POST['username'], $_POST['password'], $_POST['email'])) {
 <?= template_header('Register') ?>
 <?= template_nav('Site Title') ?>
 
-    <!-- START PAGE CONTENT -->
-    <h1 class="title">Register</h1>
+<!-- START PAGE CONTENT -->
+<h1 class="title">Register</h1>
+<!-- Responses -->
+<?php if ($responses) : ?>
+    <p class="notification is-danger is-light">
+        <?php echo implode('<br>', $responses); ?>
+    </p>
+<?php endif; ?>
 
+<form action="" method="post">
 
-    <?php if($responses) :?>
-                <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
-                    echo "<br>";
-                    var_dump($_POST);?></p>
-            <?php endif; ?>
-
-    <form action="" method="post">
-
-        <!-- Username -->
-        <div class="field">
-            <label class="label">Username</label>
-            <div class="control has-icons-left">
-                <input class="input" type="text" name="username" placeholder="jsmith" require>
-                <span class="icon is-left">
-                    <i class="fas fa-user-ninja"></i>
-                </span>
-            </div>
+    <!-- Username -->
+    <div class="field">
+        <label class="label">Username</label>
+        <div class="control has-icons-left">
+            <input class="input" type="text" name="username" placeholder="jsmith" require>
+            <span class="icon is-left">
+                <i class="fas fa-user-ninja"></i>
+            </span>
         </div>
+    </div>
 
-        <!-- Password -->
-        <div class="field">
-            <label class="label">Password</label>
-            <div class="control has-icons-left">
-                <input class="input" type="password" name="password" placeholder="Password" require>
-                <span class="icon is-left">
-                    <i class="fas fa-lock"></i>
-                </span>
-            </div>
+    <!-- Password -->
+    <div class="field">
+        <label class="label">Password</label>
+        <div class="control has-icons-left">
+            <input class="input" type="password" name="password" placeholder="Password" require>
+            <span class="icon is-left">
+                <i class="fas fa-lock"></i>
+            </span>
         </div>
+    </div>
 
-        <!-- Email -->
-        <div class="field">
-            <label class="label">Email</label>
-            <div class="control has-icons-left">
-                <input class="input" type="email" name="email" placeholder="jsmith@example.com" require>
-                <span class="icon is-left">
-                    <i class="fas fa-at"></i>
-                </span>
-            </div>
+    <!-- Email -->
+    <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left">
+            <input class="input" type="email" name="email" placeholder="jsmith@example.com" require>
+            <span class="icon is-left">
+                <i class="fas fa-at"></i>
+            </span>
         </div>
+    </div>
 
-        <!-- Button -->
-        <div class="field is-grouped">
-            <p class="control">
-                <button class="button is-success">
-                    Register
-                </button>
-            </p>
-            <p class="buttons">
-                <a class="button" href="login.php">
-                    <span>Cancel</span>
-                </a>
-            </p>
-        </div>
-    </form>
-    <!-- END PAGE CONTENT -->
+    <!-- Button -->
+    <div class="field is-grouped">
+        <p class="control">
+            <button class="button is-success">
+                Register
+            </button>
+        </p>
+        <p class="buttons">
+            <a class="button" href="login.php">
+                <span>Cancel</span>
+            </a>
+        </p>
+    </div>
+</form>
+<!-- END PAGE CONTENT -->
 
 <?= template_footer() ?>

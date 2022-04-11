@@ -15,16 +15,15 @@ $responses = [];
 <?= template_header('Page Title') ?>
 <?= template_nav('Site Title') ?>
 
-    <!-- START PAGE CONTENT -->
-    <h1 class="title">Page Heading</h1>
+<!-- START PAGE CONTENT -->
+<h1 class="title">Page Heading</h1>
+<!-- Responses -->
+<?php if ($responses) : ?>
+    <p class="notification is-danger is-light">
+        <?php echo implode('<br>', $responses); ?>
+    </p>
+<?php endif; ?>
 
-    <!-- Response -->
-    <?php if($responses) :?>
-                <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
-                    echo "<br>";
-                    var_dump($_POST);?></p>
-            <?php endif; ?>
-
-    <!-- END PAGE CONTENT -->
+<!-- END PAGE CONTENT -->
 
 <?= template_footer() ?>

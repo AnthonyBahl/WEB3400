@@ -1,8 +1,6 @@
 <?php
 require 'config.php';
 
-$responses = [];
-
 // use PDO to connect to our database
 $pdo = pdo_connect_mysql();
 
@@ -41,10 +39,11 @@ if (isset($_POST['name'], $_POST['email'], $_POST['phone'], $_POST['title'])) {
 
 <!-- START PAGE CONTENT -->
 <h1 class="title">Create New Contact</h1>
-
-<!-- Response -->
+<!-- Responses -->
 <?php if ($responses) : ?>
-    <p class="notification is-danger is-light"><?php echo implode('<br>', $responses); ?></p>
+    <p class="notification is-danger is-light">
+        <?php echo implode('<br>', $responses); ?>
+    </p>
 <?php endif; ?>
 
 <form action="" method="post">

@@ -8,8 +8,6 @@ require 'config.php';
 
 $pdo = pdo_connect_mysql();
 
-$responses = [];
-
 // Check if there was an ID passed
 if (isset($_GET['id'])) {
 
@@ -25,7 +23,6 @@ if (isset($_GET['id'])) {
         $stmt = $pdo->prepare('SELECT * FROM `poll_answers` WHERE `poll_id` = ?');
         $stmt->execute([$_GET['id']]);
         $poll_answers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     } else {
         $responses[] = "There was an error grabing poll with ID of " . $_GET['id'];
     }
@@ -57,35 +54,34 @@ if (!empty($_POST) && isset($_GET['id'])) {
 <?= template_header('Page Title') ?>
 <?= template_nav('Site Title') ?>
 
-<!-- Response -->
-<?php if($responses) :?>
-            <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
-                echo "<br>";
-                var_dump($_POST);?></p>
-        <?php endif; ?>
-
-    <!-- START PAGE CONTENT -->
-    <h1 class="title">Vote for:</h1>
-    <h2 class="subtitle"><?= $poll['title']?></h2>
-    <form method="post">
-        <div class="field">
-            <div class="control">
-                <?php foreach ($poll_answers as $poll_answer) :?>
+<!-- START PAGE CONTENT -->
+<h1 class="title">Vote for:</h1>
+<!-- Responses -->
+<?php if ($responses) : ?>
+    <p class="notification is-danger is-light">
+        <?php echo implode('<br>', $responses); ?>
+    </p>
+<?php endif; ?>
+<h2 class="subtitle"><?= $poll['title'] ?></h2>
+<form method="post">
+    <div class="field">
+        <div class="control">
+            <?php foreach ($poll_answers as $poll_answer) : ?>
                 <label class="radio">
-                    <input type="radio" name="poll_answer" value="<?=$poll_answer['id']?>" required> <?=$poll_answer['title']?>
+                    <input type="radio" name="poll_answer" value="<?= $poll_answer['id'] ?>" required> <?= $poll_answer['title'] ?>
                 </label>
                 <br />
-                <?php endforeach;?>
-            </div>
+            <?php endforeach; ?>
         </div>
-        <div class="field">
-            <div class="control">
-                <button class="button is-link">Vote</button>
-            </div>
-        </div>
-        <a href="polls.php">Return to polls page</a>
-    </form>
     </div>
-    <!-- END PAGE CONTENT -->
+    <div class="field">
+        <div class="control">
+            <button class="button is-link">Vote</button>
+        </div>
+    </div>
+    <a href="polls.php">Return to polls page</a>
+</form>
+</div>
+<!-- END PAGE CONTENT -->
 
 <?= template_footer() ?>

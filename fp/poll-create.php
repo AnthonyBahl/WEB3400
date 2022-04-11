@@ -7,7 +7,6 @@
 require 'config.php';
 
 $pdo = pdo_connect_mysql();
-$responses = [];
 
 if (!empty($_POST)) {
     $title = isset($_POST['title']) ? $_POST['title'] : '';
@@ -36,6 +35,7 @@ if (!empty($_POST)) {
 
 <!-- START PAGE CONTENT -->
 <h1 class="title">Create Poll</h1>
+<!-- Responses -->
 <?php if ($responses) : ?>
     <p class="notification is-danger is-light">
         <?php echo implode('<br>', $responses); ?>

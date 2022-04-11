@@ -1,8 +1,6 @@
 <?php
 require 'config.php';
 
-$responses = [];
-
 // use PDO to connect to our database
 $pdo = pdo_connect_mysql();
 
@@ -39,73 +37,72 @@ if (isset($_GET['id'])) {
 <?= template_header('Contact Update') ?>
 <?= template_nav('Site Title') ?>
 
-    <!-- START PAGE CONTENT -->
-    <h1 class="title">Contact Update</h1>
+<!-- START PAGE CONTENT -->
+<h1 class="title">Contact Update</h1>
+<!-- Responses -->
+<?php if ($responses) : ?>
+    <p class="notification is-danger is-light">
+        <?php echo implode('<br>', $responses); ?>
+    </p>
+<?php endif; ?>
 
-    <!-- Response -->
-    <?php if($responses) :?>
-                <p class="notification is-danger is-light"><?php echo implode('<br>', $responses);
-                    echo "<br>";
-                    var_dump($_POST);?></p>
-            <?php endif; ?>
-
-    <form action="contact-update.php?id=<?= $contact['id']?>" method="post">
-        <!-- Name -->
-        <div class="field">
-            <label class="label">Name</label>
-            <div class="control has-icons-left">
-                <input class="input" type="text" name="name" value="<?= $contact['name']?>" require>
-                <span class="icon is-left">
-                    <i class="fas fa-user-ninja"></i>
-                </span>
-            </div>
+<form action="contact-update.php?id=<?= $contact['id'] ?>" method="post">
+    <!-- Name -->
+    <div class="field">
+        <label class="label">Name</label>
+        <div class="control has-icons-left">
+            <input class="input" type="text" name="name" value="<?= $contact['name'] ?>" require>
+            <span class="icon is-left">
+                <i class="fas fa-user-ninja"></i>
+            </span>
         </div>
-        <!-- Email -->
-        <div class="field">
-            <label class="label">Email</label>
-            <div class="control has-icons-left">
-                <input class="input" type="email" name="email" value="<?= $contact['email']?>" require>
-                <span class="icon is-left">
-                    <i class="fas fa-at"></i>
-                </span>
-            </div>
+    </div>
+    <!-- Email -->
+    <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left">
+            <input class="input" type="email" name="email" value="<?= $contact['email'] ?>" require>
+            <span class="icon is-left">
+                <i class="fas fa-at"></i>
+            </span>
         </div>
-        <!-- Phone -->
-        <div class="field">
-            <label class="label">Phone</label>
-            <div class="control has-icons-left">
-                <input class="input" type="tel" name="phone" value="<?= $contact['phone']?>" require>
-                <span class="icon is-left">
-                    <i class="fas fa-phone"></i>
-                </span>
-            </div>
+    </div>
+    <!-- Phone -->
+    <div class="field">
+        <label class="label">Phone</label>
+        <div class="control has-icons-left">
+            <input class="input" type="tel" name="phone" value="<?= $contact['phone'] ?>" require>
+            <span class="icon is-left">
+                <i class="fas fa-phone"></i>
+            </span>
         </div>
-        <!-- Title -->
-        <div class="field">
-            <label class="label">Title</label>
-            <div class="control has-icons-left">
-                <input class="input" type="text" name="title" value="<?= $contact['title']?>">
-                <span class="icon is-left">
-                    <i class="fas fa-tag"></i>
-                </span>
-            </div>
+    </div>
+    <!-- Title -->
+    <div class="field">
+        <label class="label">Title</label>
+        <div class="control has-icons-left">
+            <input class="input" type="text" name="title" value="<?= $contact['title'] ?>">
+            <span class="icon is-left">
+                <i class="fas fa-tag"></i>
+            </span>
         </div>
-        <!-- Update Button -->
-        <div class="field is-grouped is-grouped-left">
-            <p class="control">
-                <button class="button is-primary">
-                    Update
-                </button>
-            </p>
+    </div>
+    <!-- Update Button -->
+    <div class="field is-grouped is-grouped-left">
+        <p class="control">
+            <button class="button is-primary">
+                Update
+            </button>
+        </p>
         <!-- Cancel Button -->
-            <p class="control">
+        <p class="control">
             <a href="contacts.php" class="button is-light">
                 Cancel
             </a>
-            </p>
-        </div>
-    </form>
+        </p>
+    </div>
+</form>
 
-    <!-- END PAGE CONTENT -->
+<!-- END PAGE CONTENT -->
 
 <?= template_footer() ?>
