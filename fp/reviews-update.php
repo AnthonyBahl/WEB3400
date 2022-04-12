@@ -70,7 +70,7 @@ if (isset($_POST['rating'], $_POST['name'], $_POST['content'])) {
         $stmt = $pdo->prepare('UPDATE `reviews` SET `name`= ?, `content`= ?, `rating`= ?, `submit_date`= NOW() WHERE `id` = ?');
         $stmt->execute([$author, $content, $rating, $_GET['id']]);
 
-        $headerLocation = 'Location: reviews-admin.php?id=' . $_GET['id'];
+        $headerLocation = 'Location: admin.php?id=' . $_GET['id'];
         header($headerLocation);
     }
 }
