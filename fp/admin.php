@@ -30,7 +30,7 @@ $pdo = pdo_connect_mysql();
     <!-- END LEFT NAV COLUMN -->
     <!-- START RIGHT CONTENT COLUMN-->
     <div class="column">
-        <h1 class="title">Admin Center</h1>
+        <h1 class="title">Admin Dashboard</h1>
         <!-- Responses -->
         <?php if ($responses) : ?>
             <p class="notification is-danger is-light">
