@@ -117,10 +117,13 @@ function admin_nav($fileName)
 function template_nav($siteTitle = "Most Amazing Blog Ever")
 {
   $logInOutlink = '';
+  $logInOutDisplay = '';
   if (isset($_SESSION['loggedin'])) {
     $logInOutlink = 'out';
+    $logInOutDisplay = 'inline';
   } else {
     $logInOutlink = 'in';
+    $logInOutDisplay = 'none';
   }
   echo <<<EOT
     <!-- START NAV -->
@@ -146,6 +149,10 @@ function template_nav($siteTitle = "Most Amazing Blog Ever")
             <div class="navbar-end">
               <div class="navbar-item">
                 <div class="buttons">
+                  <a href="admin.php" class="button" style="display:$logInOutDisplay">
+                    <span class="icon"><i class="fa-solid fa-user-lock"></i></span>
+                    <span>Admin</span>
+                  </a>
                   <a href="contact.php" class="button">
                     <span class="icon"><i class="fas fa-address-book"></i></span>
                     <span>Contact Us</span>
