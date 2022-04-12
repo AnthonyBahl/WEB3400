@@ -13,6 +13,8 @@ if (!isset($_SESSION['loggedin'])) {
 // use PDO to connect to our database
 $pdo = pdo_connect_mysql();
 
+$validID = true;
+
 // If there is a query string value for 'id'
 if (isset($_GET['id'])) {
     // get the contact from the DB
@@ -20,7 +22,8 @@ if (isset($_GET['id'])) {
     $stmt->execute([$_GET['id']]);
     $contact = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$contact) {
-        exit('A contact did not exist with that ID.');
+        $validID = false;
+        $responses[] = 'A contact did not exist with an ID of ' . $_GET['id'] . '.';
     }
 
     // Delete the record if the user clicked yes.
@@ -54,7 +57,7 @@ if (isset($_GET['id'])) {
     </p>
 <?php endif; ?>
 
-<!-- <?php if (isset($_GET['id'])) : ?> -->
+<?php if ($validID) : ?>
 <h2 class="subtitle">Are you sure you want to delete contact #
     <?= $contact['id'] ?> - <?= $contact['name'] ?>?
 </h2>
@@ -63,7 +66,7 @@ if (isset($_GET['id'])) {
     <a href="?id=<?= $contact['id'] ?>&confirm=yes" class="button is-success">Yes</a>
     <a href="?id=<?= $contact['id'] ?>&confirm=no" class="button is-danger">No</a>
 </div>
-<!-- <?php endif; ?> -->
+<?php endif; ?>
 <!-- END PAGE CONTENT -->
 
 <?= template_footer() ?>

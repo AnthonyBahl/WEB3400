@@ -23,7 +23,7 @@ if (isset($_POST['name'], $_POST['email'], $_POST['phone'], $_POST['title'])) {
         $stmt->execute([$_POST['name']]);
         $contact = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($contact) {
-            exit('A contact already exists with that name.');
+            $responses[] = 'A contact already exists with that name.';
         }
         if (!empty($_POST)) {
             //PHP ternary operator

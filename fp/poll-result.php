@@ -41,7 +41,7 @@ if (isset($_GET['id'])) {
         $responses[] = "There was an error grabing poll with ID of " . $_GET['id'];
     }
 } else {
-    $responses[] = "You must provide a poll ID.";
+    $responses[] = "You must provide a poll ID. <a href='polls.php'>Click Here</a> to return to the polls list.";
 }
 
 ?>

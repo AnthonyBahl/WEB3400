@@ -13,6 +13,8 @@ if (!isset($_SESSION['loggedin'])) {
 // use PDO to connect to our database
 $pdo = pdo_connect_mysql();
 
+$validID = true;
+
 // If there is a query string value for 'id'
 if (isset($_GET['id'])) {
     // get the contact from the DB
@@ -20,7 +22,8 @@ if (isset($_GET['id'])) {
     $stmt->execute([$_GET['id']]);
     $contact = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$contact) {
-        exit('A contact did not exist with an ID of ' . $_GET['id'] . '.');
+        $validID = false;
+        $responses[] = 'A contact did not exist with an ID of ' . $_GET['id'] . '.';
     }
 
     // Update the record after the form is submitted
@@ -55,62 +58,64 @@ if (isset($_GET['id'])) {
     </p>
 <?php endif; ?>
 
-<form action="contact-update.php?id=<?= $contact['id'] ?>" method="post">
-    <!-- Name -->
-    <div class="field">
-        <label class="label">Name</label>
-        <div class="control has-icons-left">
-            <input class="input" type="text" name="name" value="<?= $contact['name'] ?>" require>
-            <span class="icon is-left">
-                <i class="fas fa-user-ninja"></i>
-            </span>
+<?php if ($validID) : ?>
+    <form action="contact-update.php?id=<?= $contact['id'] ?>" method="post">
+        <!-- Name -->
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control has-icons-left">
+                <input class="input" type="text" name="name" value="<?= $contact['name'] ?>" require>
+                <span class="icon is-left">
+                    <i class="fas fa-user-ninja"></i>
+                </span>
+            </div>
         </div>
-    </div>
-    <!-- Email -->
-    <div class="field">
-        <label class="label">Email</label>
-        <div class="control has-icons-left">
-            <input class="input" type="email" name="email" value="<?= $contact['email'] ?>" require>
-            <span class="icon is-left">
-                <i class="fas fa-at"></i>
-            </span>
+        <!-- Email -->
+        <div class="field">
+            <label class="label">Email</label>
+            <div class="control has-icons-left">
+                <input class="input" type="email" name="email" value="<?= $contact['email'] ?>" require>
+                <span class="icon is-left">
+                    <i class="fas fa-at"></i>
+                </span>
+            </div>
         </div>
-    </div>
-    <!-- Phone -->
-    <div class="field">
-        <label class="label">Phone</label>
-        <div class="control has-icons-left">
-            <input class="input" type="tel" name="phone" value="<?= $contact['phone'] ?>" require>
-            <span class="icon is-left">
-                <i class="fas fa-phone"></i>
-            </span>
+        <!-- Phone -->
+        <div class="field">
+            <label class="label">Phone</label>
+            <div class="control has-icons-left">
+                <input class="input" type="tel" name="phone" value="<?= $contact['phone'] ?>" require>
+                <span class="icon is-left">
+                    <i class="fas fa-phone"></i>
+                </span>
+            </div>
         </div>
-    </div>
-    <!-- Title -->
-    <div class="field">
-        <label class="label">Title</label>
-        <div class="control has-icons-left">
-            <input class="input" type="text" name="title" value="<?= $contact['title'] ?>">
-            <span class="icon is-left">
-                <i class="fas fa-tag"></i>
-            </span>
+        <!-- Title -->
+        <div class="field">
+            <label class="label">Title</label>
+            <div class="control has-icons-left">
+                <input class="input" type="text" name="title" value="<?= $contact['title'] ?>">
+                <span class="icon is-left">
+                    <i class="fas fa-tag"></i>
+                </span>
+            </div>
         </div>
-    </div>
-    <!-- Update Button -->
-    <div class="field is-grouped is-grouped-left">
-        <p class="control">
-            <button class="button is-primary">
-                Update
-            </button>
-        </p>
-        <!-- Cancel Button -->
-        <p class="control">
-            <a href="contacts.php" class="button is-light">
-                Cancel
-            </a>
-        </p>
-    </div>
-</form>
+        <!-- Update Button -->
+        <div class="field is-grouped is-grouped-left">
+            <p class="control">
+                <button class="button is-primary">
+                    Update
+                </button>
+            </p>
+            <!-- Cancel Button -->
+            <p class="control">
+                <a href="contacts.php" class="button is-light">
+                    Cancel
+                </a>
+            </p>
+        </div>
+    </form>
+<?php endif; ?>
 
 <!-- END PAGE CONTENT -->
 

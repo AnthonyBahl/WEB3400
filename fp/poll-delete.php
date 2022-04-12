@@ -17,6 +17,8 @@ if (!isset($_SESSION['loggedin'])) {
 // use PDO to connect to our database
 $pdo = pdo_connect_mysql();
 
+$validID = true;
+
 // If there is a query string value for 'id'
 if (isset($_GET['id'])) {
     // get the contact from the DB
@@ -24,7 +26,8 @@ if (isset($_GET['id'])) {
     $stmt->execute([$_GET['id']]);
     $poll = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$poll) {
-        exit('A poll did not exist with that ID.');
+        $validID = false;
+        $responses[] = "A poll did not exist with that ID. <a href='polls.php'>Click Here</a> to return to the polls list.";
     }
 
     // Delete the record if the user clicked yes.
@@ -61,6 +64,7 @@ if (isset($_GET['id'])) {
         <?php echo implode('<br>', $responses); ?>
     </p>
 <?php endif; ?>
+<?php if($validID) : ?>
 <p>Are you sure you want to delete poll?</p>
 <?= $poll['id'] ?> - <?= $poll['title'] ?> ?
 
@@ -68,6 +72,7 @@ if (isset($_GET['id'])) {
     <a href="?id=<?= $poll['id'] ?>&confirm=yes" class="button is-success">Yes</a>
     <a href="?id=<?= $poll['id'] ?>&confirm=no" class="button is-danger">No</a>
 </div>
+<?php endif; ?>
 <!-- END PAGE CONTENT -->
 
 <?= template_footer() ?>
