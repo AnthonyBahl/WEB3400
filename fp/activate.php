@@ -1,6 +1,9 @@
 <?php
 require 'config.php';
 
+// Start the session
+session_start();
+
 // First we check if the email and code exists...
 if (isset($_GET['email'], $_GET['code'])) {
     if($stmt = $con->prepare('SELECT * FROM `accounts` WHERE `email` = ? AND `activation_code` = ?')) {

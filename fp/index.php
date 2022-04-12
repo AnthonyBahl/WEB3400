@@ -5,6 +5,9 @@
 <?php
 require 'config.php';
 
+// Start the session
+session_start();
+
 //additional php code for this page goes here
 
 ?>

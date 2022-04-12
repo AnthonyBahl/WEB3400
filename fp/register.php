@@ -1,6 +1,9 @@
 <?php
 require 'config.php';
 
+// Start the session
+session_start();
+
 if (isset($_POST['username'], $_POST['password'], $_POST['email'])) {
 
     // We need to check to see if the username already exists.

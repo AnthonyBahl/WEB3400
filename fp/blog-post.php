@@ -1,6 +1,9 @@
 <?php
 require 'config.php';
 
+// Start the session
+session_start();
+
 $pdo = pdo_connect_mysql();
 
 // Your MySQL query that selects the blog post goes here

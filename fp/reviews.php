@@ -1,6 +1,9 @@
 <?php
 require 'config.php';
 
+// Start the session
+session_start();
+
 $pdo = pdo_connect_mysql();
 
 // Page ID needs to exist, this is used to determine which reviews are for which page.

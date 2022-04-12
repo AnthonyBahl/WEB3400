@@ -1,6 +1,9 @@
 <?php
 require 'config.php';
 
+// Start the session
+session_start();
+
 //check to see if the form was submitted
 if (isset($_POST['name'], $_POST['email'], $_POST['subject'], $_POST['message'])) {
     // Validate the email address
