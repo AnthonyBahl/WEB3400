@@ -19,7 +19,7 @@ $stmt = $pdo->query("SELECT `id`, `title`, `author_name`, DATE_FORMAT(`created`,
 $recentBlogPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<?= template_header('Page Title') ?>
+<?= template_header() ?>
 <?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->

@@ -33,7 +33,7 @@ if (isset($_POST['name'], $_POST['email'], $_POST['subject'], $_POST['message'])
 }
 ?>
 
-<?= template_header('Page Title') ?>
+<?= template_header() ?>
 <?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->

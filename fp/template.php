@@ -12,7 +12,7 @@ session_start();
 
 ?>
 
-<?= template_header('Page Title') ?>
+<?= template_header() ?>
 <?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->

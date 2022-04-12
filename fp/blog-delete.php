@@ -45,7 +45,7 @@ if (isset($_GET['id'])) {
 
 ?>
 
-<?= template_header('Page Title') ?>
+<?= template_header('Delete Post') ?>
 <?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->

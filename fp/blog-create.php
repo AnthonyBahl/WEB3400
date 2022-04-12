@@ -39,7 +39,7 @@ if (isset($_POST['title'], $_POST['name'], $_POST['content'])) {
 
 ?>
 
-<?= template_header('Page Title') ?>
+<?= template_header('Create Post') ?>
 <?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->

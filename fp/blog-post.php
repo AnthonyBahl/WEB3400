@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
 }
 ?>
 
-<?= template_header('BOLG Post') ?>
+<?= template_header($post['title']) ?>
 <?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->

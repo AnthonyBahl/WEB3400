@@ -17,7 +17,7 @@ $stmt->execute();
 
 ?>
 
-<?= template_header('Read Contacts') ?>
+<?= template_header('Contacts') ?>
 <?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->

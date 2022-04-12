@@ -59,7 +59,7 @@ function checkCurrentPage()
   return substr($URL, strrpos($URL, "/") + 1);
 }
 
-function template_header($title = "Page title")
+function template_header($title = "Most Amazing Blog Ever")
 {
   echo <<<EOT
  <!DOCTYPE html>

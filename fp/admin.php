@@ -16,7 +16,7 @@ if (!isset($_SESSION['loggedin'])) {
 
 ?>
 
-<?= template_header('Page Title') ?>
+<?= template_header('Admin Dashboard') ?>
 <?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
