@@ -47,7 +47,7 @@ if (isset($_GET['id'])) {
 ?>
 
 <?= template_header('Contact Update') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <h1 class="title">Contact Update</h1>
@@ -59,7 +59,7 @@ if (isset($_GET['id'])) {
 <?php endif; ?>
 
 <?php if ($validID) : ?>
-    <form action="contact-update.php?id=<?= $contact['id'] ?>" method="post">
+    <form action="" method="post">
         <!-- Name -->
         <div class="field">
             <label class="label">Name</label>

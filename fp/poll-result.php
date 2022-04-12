@@ -47,7 +47,7 @@ if (isset($_GET['id'])) {
 ?>
 
 <?= template_header('Poll Results') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <h1 class="title">Poll Results</h1>

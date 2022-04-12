@@ -44,7 +44,7 @@ if (isset($_POST['name'], $_POST['email'], $_POST['phone'], $_POST['title'])) {
 ?>
 
 <?= template_header('Create new contact') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <h1 class="title">Create New Contact</h1>

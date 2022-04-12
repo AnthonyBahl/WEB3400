@@ -44,7 +44,7 @@ if (isset($_GET['id'])) {
 ?>
 
 <?= template_header('Page Title') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <h1 class="title">Delete Review</h1>

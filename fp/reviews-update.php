@@ -78,7 +78,7 @@ if (isset($_POST['rating'], $_POST['name'], $_POST['content'])) {
 ?>
 
 <?= template_header('Page Title') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <!-- Responses -->

@@ -46,7 +46,7 @@ if (isset($_POST['username'], $_POST['password'], $_POST['email'])) {
 ?>
 
 <?= template_header('Register') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <h1 class="title">Register</h1>

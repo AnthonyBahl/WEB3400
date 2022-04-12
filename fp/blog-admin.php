@@ -13,7 +13,7 @@ session_start();
 ?>
 
 <?= template_header('Page Title') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <h1 class="title">Page Heading</h1>

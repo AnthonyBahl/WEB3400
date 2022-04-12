@@ -114,7 +114,7 @@ function admin_nav($fileName)
   EOT;
 }
 
-function template_nav($siteTitle = "Site Title", $correct_answer = "admin.php")
+function template_nav($siteTitle = "Most Amazing Blog Ever")
 {
   $logInOutlink = '';
   if (isset($_SESSION['loggedin'])) {

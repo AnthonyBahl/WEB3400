@@ -26,7 +26,7 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?= template_header('Polls') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <div class="columns">

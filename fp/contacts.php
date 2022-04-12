@@ -18,7 +18,7 @@ $stmt->execute();
 ?>
 
 <?= template_header('Read Contacts') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <div class="columns">
@@ -63,12 +63,12 @@ $stmt->execute();
                     <td>" . $row['title'] . "</td>
                     <td>" . $row['created'] . "</td>
                     <td style='text-align: right'>
-                        <a href='contact-update.php/?id=" . $row['id'] . "' class='button is-primary'>
+                        <a href='contact-update.php?id=" . $row['id'] . "' class='button is-primary'>
                             <span class='icon'>
                                 <i class='fas fa-edit'></i>
                             </span>
                         </a>
-                        <a href='contact-delete.php/?id=" . $row['id'] . "' class='button is-danger'>
+                        <a href='contact-delete.php?id=" . $row['id'] . "' class='button is-danger'>
                             <span class='icon'>
                                 <i class='fas fa-trash-alt'></i>
                             </span>

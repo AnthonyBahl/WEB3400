@@ -34,7 +34,7 @@ if (isset($_POST['name'], $_POST['email'], $_POST['subject'], $_POST['message'])
 ?>
 
 <?= template_header('Page Title') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <h1 class="title">Contact us</h1>

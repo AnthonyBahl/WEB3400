@@ -39,7 +39,7 @@ if (!empty($_POST)) {
 ?>
 
 <?= template_header('Create Poll') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <h1 class="title">Create Poll</h1>

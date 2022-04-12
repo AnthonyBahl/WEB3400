@@ -60,7 +60,7 @@ if (!empty($_POST) && isset($_GET['id'])) {
 ?>
 
 <?= template_header('Page Title') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <h1 class="title">Vote for:</h1>

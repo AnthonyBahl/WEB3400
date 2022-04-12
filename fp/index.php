@@ -20,7 +20,7 @@ $recentBlogPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?= template_header('Page Title') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <!-- Responses -->

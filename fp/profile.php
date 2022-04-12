@@ -22,7 +22,7 @@ $stmt->close();
 ?>
 
 <?= template_header('Profile') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <div class="columns">

@@ -54,7 +54,7 @@ if (isset($_GET['id'])) {
 ?>
 
 <?= template_header('Delete Poll') ?>
-<?= template_nav('Site Title') ?>
+<?= template_nav() ?>
 
 <!-- START PAGE CONTENT -->
 <h1 class="title">Delete Poll</h1>
