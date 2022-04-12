@@ -37,7 +37,7 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php foreach ($reviews as $review) : ?>
             <tr>
                 <td><?= $review['post_id'] ?></td>
-                <td><?= $review['rating'] ?></td>
+                <td><?= str_repeat('&#9733;', $review['rating']) ?></td>
                 <td><?= $review['review_content'] ?></td>
                 <td><?= $review['reviewer'] ?></td>
                 <td><?= $review['review_date'] ?></td>
