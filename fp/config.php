@@ -170,38 +170,19 @@ function template_nav($siteTitle = "Most Amazing Blog Ever")
 
 function template_footer()
 {
-  if (!isset($_SESSION['loggedin'])) {
-    echo <<<EOT
-          </div>
-      </section>
-      <!-- END MAIN-->
-  
-      <!-- START FOOTER -->
-      <footer class="footer">
-          <div class="container">
-              <p>Footer content goes here</p>
-          </div>
-      </footer>
-      <!-- END FOOTER -->
-      </body>
-    </html>
-  EOT;
-  } else {
-    echo <<<EOT
-      </div>
-          </div>
-      </section>
-      <!-- END MAIN-->
-  
-      <!-- START FOOTER -->
-      <footer class="footer">
-          <div class="container">
-              <p>Footer content goes here</p>
-          </div>
-      </footer>
-      <!-- END FOOTER -->
-      </body>
-    </html>
-  EOT;
-  }
+  echo <<<EOT
+        </div>
+    </section>
+    <!-- END MAIN-->
+
+    <!-- START FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p>Most Amazing Blog Ever &#124; Anthony Bahl &#124; &copy; Copyright 2022 All Rights Reserved</p>
+        </div>
+    </footer>
+    <!-- END FOOTER -->
+    </body>
+  </html>
+EOT;
 }
