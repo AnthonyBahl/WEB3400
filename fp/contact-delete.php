@@ -1,6 +1,15 @@
 <?php
 require 'config.php';
 
+// Start the session
+session_start();
+
+// If the user is not logged in redirect them to the login page
+if (!isset($_SESSION['loggedin'])) {
+    header('Location: login.php');
+    exit;
+}
+
 // use PDO to connect to our database
 $pdo = pdo_connect_mysql();
 

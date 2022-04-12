@@ -1,5 +1,4 @@
 <?php
-// URL: https://icarus.cs.weber.edu/~ab13559/web3400/project5/
 // Database: https://icarus.cs.weber.edu/phpmyadmin/index.php
 ?>
 

@@ -1,12 +1,9 @@
 <?php
-// URL: https://icarus.cs.weber.edu/~ab13559/web3400/project5/
 // Database: https://icarus.cs.weber.edu/phpmyadmin/index.php
 ?>
 
 <?php
 require 'config.php';
-
-$pdo = pdo_connect_mysql();
 
 // Start the session
 session_start();
@@ -16,6 +13,8 @@ if (!isset($_SESSION['loggedin'])) {
     header('Location: login.php');
     exit;
 }
+
+$pdo = pdo_connect_mysql();
 
 ?>
 

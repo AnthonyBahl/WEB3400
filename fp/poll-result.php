@@ -1,10 +1,18 @@
 <?php
-// URL: https://icarus.cs.weber.edu/~ab13559/web3400/project5/
 // Database: https://icarus.cs.weber.edu/phpmyadmin/index.php
 ?>
 
 <?php
 require 'config.php';
+
+// Start the session
+session_start();
+
+// If the user is not logged in redirect them to the login page
+if (!isset($_SESSION['loggedin'])) {
+    header('Location: login.php');
+    exit;
+}
 
 $pdo = pdo_connect_mysql();
 

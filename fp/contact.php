@@ -1,6 +1,3 @@
-<?php // https://icarus.cs.weber.edu/~ab13559/web3400/project0/contact.php 
-?>
-
 <?php
 require 'config.php';
 
