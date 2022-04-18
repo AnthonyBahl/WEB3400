@@ -84,6 +84,8 @@ function admin_nav($fileName)
   $profileActive = '';
   $pollsActive = '';
   $contactsActive = '';
+  $blogAdminActive = '';
+  $reviewsAdminActive = '';
 
   switch ($fileName) {
     case 'admin.php':
@@ -98,6 +100,12 @@ function admin_nav($fileName)
     case 'contacts.php':
       $contactsActive = 'is-active';
       break;
+    case 'blog-admin.php':
+      $blogAdminActive = 'is-active';
+      break;
+    case 'reviews-admin.php':
+      $reviewsAdminActive = 'is-active';
+      break;
   }
 
   echo <<<EOT
@@ -109,6 +117,8 @@ function admin_nav($fileName)
           <li><a href="profile.php" class="$profileActive"> Profile </a></li>
           <li><a href="polls.php" class="$pollsActive"> Polls </a></li>
           <li><a href="contacts.php" class="$contactsActive"> Contacts </a></li>
+          <li><a href="blog-admin.php" class="$blogAdminActive"> Blog Admin </a></li>
+          <li><a href="reviews-admin.php" class="$reviewsAdminActive"> Reviews Admin </a></li>
       </ul>
   </aside>
   EOT;

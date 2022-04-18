@@ -14,6 +14,16 @@ if (!isset($_SESSION['loggedin'])) {
     exit;
 }
 
+$pdo = pdo_connect_mysql();
+
+// get 10 most recent blog posts
+$stmt = $pdo->query("SELECT `id`, `title`, `author_name`, DATE_FORMAT(`created`, '%M %D %Y') AS date_created, LEFT(`content`, 100) AS content_preview
+                     FROM `blog_post`
+                     WHERE `published`
+                     ORDER BY `created` DESC
+                     LIMIT 10");
+$recentBlogPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <?= template_header('Admin Dashboard') ?>
@@ -27,33 +37,25 @@ if (!isset($_SESSION['loggedin'])) {
     </div>
     <!-- END LEFT NAV COLUMN -->
     <!-- START RIGHT CONTENT COLUMN-->
-    <div class="column">
-        <h1 class="title">Admin Dashboard</h1>
-        <!-- Responses -->
+    <div>
+        <h1 class="title">Recent Blog Posts</h1>
         <?php if ($responses) : ?>
             <p class="notification is-danger is-light">
                 <?php echo implode('<br>', $responses); ?>
             </p>
         <?php endif; ?>
-        <div class="blog-posts">
-            <script>
-                fetch("blog-admin.php")
-                    .then(response => response.text())
-                    .then(data => {
-                        document.querySelector(".blog-posts").innerHTML = data;
-                    });
-            </script>
-        </div>
-        <br />
-        <div class="reviews">
-            <script>
-                fetch("reviews-admin.php")
-                    .then(response => response.text())
-                    .then(data => {
-                        document.querySelector(".reviews").innerHTML = data;
-                    });
-            </script>
-        </div>
+        <?php foreach ($recentBlogPosts as $post) : ?>
+            <div class="box">
+                <h1 class="title is-4"><?= htmlspecialchars($post['title'], ENT_QUOTES) ?></h1>
+                <h2 class="subtitle is-6"><?= htmlspecialchars($post['author_name'], ENT_QUOTES) ?>
+                    -
+                    <?= htmlspecialchars($post['date_created'], ENT_QUOTES) ?></h2>
+                <p>
+                    <?= htmlspecialchars($post['content_preview'], ENT_QUOTES) ?>
+                    ... <a href="blog-post.php?id=<?= $post['id'] ?>">read more</a>
+                </p>
+            </div>
+        <?php endforeach ?>
     </div>
     <!-- END RIGHT CONTENT COLUMN-->
 </div>
