@@ -10,11 +10,22 @@ if (!isset($_SESSION['loggedin'])) {
     exit;
 }
 
-// use PDO to connect to our database
-$pdo = pdo_connect_mysql();
-$stmt = $pdo->prepare('SELECT * FROM contacts');
-$stmt->execute();
+if (!isset($_GET['page'])) {
+    header('Location: contacts.php?page=1');
+} else {
+    // use PDO to connect to our database
+    $pdo = pdo_connect_mysql();
 
+    // Get Total Page Count
+    $stmt = $pdo->prepare('SELECT COUNT(*) FROM contacts');
+    $stmt->execute();
+    $total_rows = $stmt->fetchColumn();
+    $total_pages = ceil($total_rows / 10);
+
+    $lowerLimit = ($_GET['page'] - 1) * 10;
+    $stmt = $pdo->prepare('SELECT * FROM contacts ORDER BY id ASC LIMIT ' . $lowerLimit . ', 10');
+    $stmt->execute();
+}
 ?>
 
 <?= template_header('Contacts') ?>
@@ -78,6 +89,31 @@ $stmt->execute();
                 } ?>
             </tbody>
         </table>
+        <?php if ($total_pages > 1) : ?>
+            <nav class="pagination" role="navigation" aria-label="pagination">
+                <?php if ($_GET['page'] > 1) : ?>
+                    <a class="pagination-previous" href="contacts.php?page=<?= $_GET['page'] - 1 ?>">Previous</a>
+                <?php else : ?>
+                    <span class="pagination-previous" disabled>Previous</span>
+                <?php endif; ?>
+                <?php if ($total_pages > $_GET['page']) : ?>
+                    <a class="pagination-next" href="contacts.php?page=<?= $_GET['page'] + 1 ?>">Next page</a>
+                <?php else : ?>
+                    <span class="pagination-next" disabled>Next page</span>
+                <?php endif; ?>
+                <ul class="pagination-list">
+                    <?php
+                    for ($i = 1; $i <= $total_pages; $i++) {
+                        if ($i == $_GET['page']) {
+                            echo "<li><a href='contacts.php?page=$i'><u>" . $i . "</u>&nbsp;</a></li>";
+                        } else {
+                            echo "<li><a href='contacts.php?page=$i'>" . $i . "&nbsp;</a></li>";
+                        }
+                    }
+                    ?>
+                </ul>
+            </nav>
+        <?php endif; ?>
     </div>
     <!-- END RIGHT CONTENT COLUMN-->
 </div>

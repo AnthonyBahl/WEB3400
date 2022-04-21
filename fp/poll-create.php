@@ -32,8 +32,7 @@ if (!empty($_POST)) {
         $stmt = $pdo->prepare('INSERT INTO `poll_answers` (`poll_id`, `title`) VALUES (?,?)');
         $stmt->execute([$poll_id, $answer]);
     }
-
-    $responses[] = "Your poll was created successfully! <a href='polls.php'>Click Here</a> to return to the polls page.";
+    header('Location: polls.php');
 }
 
 ?>

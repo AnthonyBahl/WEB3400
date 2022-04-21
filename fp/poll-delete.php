@@ -21,6 +21,12 @@ $validID = true;
 
 // If there is a query string value for 'id'
 if (isset($_GET['id'])) {
+    // Get page number for contacts.php for reditects
+    $stmt = $pdo->prepare('WITH cte AS (SELECT `id`, ROW_NUMBER() OVER (ORDER BY `id` DESC) AS rn FROM `polls`) SELECT rn FROM cte WHERE id = ?');
+    $stmt->execute([$_GET['id']]);
+    $row_number = $stmt->fetchColumn();
+    $return_page_number = floor($row_number / 10) + 1;
+
     // get the contact from the DB
     $stmt = $pdo->prepare('SELECT * FROM `polls` WHERE id = ?');
     $stmt->execute([$_GET['id']]);
@@ -40,12 +46,8 @@ if (isset($_GET['id'])) {
             // Delete the answers
             $stmt = $pdo->prepare('DELETE FROM `poll_answers` WHERE `poll_id` = ?');
             $stmt->execute([$_GET['id']]);
-
-            $responses[] = "You have deleted the poll! <a href='polls.php'>Return to polls page</a>";
-        } else {
-            // Redirect backto contacts
-            header('Location: polls.php');
         }
+        header('Location: polls.php?page=' . $return_page_number);
     }
 } else {
     $responses[] = "No id Found.";

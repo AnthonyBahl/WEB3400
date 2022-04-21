@@ -17,6 +17,12 @@ $validID = true;
 
 // If there is a query string value for 'id'
 if (isset($_GET['id'])) {
+    // Get page number for contacts.php for reditects
+    $stmt = $pdo->prepare('WITH cte AS (SELECT `id`, ROW_NUMBER() OVER (ORDER BY id) AS rn FROM contacts) SELECT rn FROM cte WHERE id = ?');
+    $stmt->execute([$_GET['id']]);
+    $row_number = $stmt->fetchColumn();
+    $return_page_number = floor($row_number / 10) + 1;
+
     // get the contact from the DB
     $stmt = $pdo->prepare('SELECT * FROM contacts WHERE id = ?');
     $stmt->execute([$_GET['id']]);
@@ -38,12 +44,12 @@ if (isset($_GET['id'])) {
         $stmt = $pdo->prepare('UPDATE `contacts` SET `name` = ?, `email` = ?, `phone`= ?, `title` = ? WHERE id = ?');
         $stmt->execute([$name, $email, $phone, $title, $_GET['id']]);
         $responses[] = 'The record was updated.';
-        header('Location: contacts.php');
+        // Navigate back to contacts
+        header('Location: contacts.php?page=' . $return_page_number);
     }
 } else {
     $responses[] = 'No ID was found...';
 }
-
 ?>
 
 <?= template_header('Contact Update') ?>
@@ -109,7 +115,7 @@ if (isset($_GET['id'])) {
             </p>
             <!-- Cancel Button -->
             <p class="control">
-                <a href="contacts.php" class="button is-light">
+                <a href="contacts.php?page=<?= $return_page_number ?>" class="button is-light">
                     Cancel
                 </a>
             </p>

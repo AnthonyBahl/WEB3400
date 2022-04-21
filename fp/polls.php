@@ -14,15 +14,30 @@ if (!isset($_SESSION['loggedin'])) {
     exit;
 }
 
-//connect to our database using pdo
-$pdo = pdo_connect_mysql();
+if (!isset($_GET['page'])) {
+    header('Location: polls.php?page=1');
+} else {
+    // use PDO to connect to our database
+    $pdo = pdo_connect_mysql();
 
-// get all the polls
-$stmt = $pdo->query("SELECT p.*, GROUP_CONCAT(pa.title ORDER BY pa.id) AS answers
-                     FROM polls p
-                     LEFT JOIN poll_answers pa ON pa.poll_id = p.id
-                     GROUP BY p.id");
-$polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Get Total Page Count
+    $stmt = $pdo->prepare('SELECT COUNT(*) FROM `polls`');
+    $stmt->execute();
+    $total_rows = $stmt->fetchColumn();
+    $total_pages = ceil($total_rows / 10);
+
+    // get 10 most recent blog posts
+    $lowerLimit = ($_GET['page'] - 1) * 10;
+    $stmt = $pdo->prepare("SELECT p.`id`, p.`title`, p.`desc`, GROUP_CONCAT(pa.`title` ORDER BY pa.`id`) AS answers
+                           FROM polls p
+                                LEFT JOIN poll_answers pa ON pa.`poll_id` = p.`id`
+                           GROUP BY p.`id`
+                           ORDER BY p.`id` DESC
+                           LIMIT ?, 10");
+    $stmt->bindParam(1, $lowerLimit, PDO::PARAM_INT);
+    $stmt->execute();
+    $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>
 
 <?= template_header('Polls') ?>
@@ -69,6 +84,31 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach ?>
             </tbody>
         </table>
+        <?php if ($total_pages > 1) : ?>
+                <nav class="pagination" role="navigation" aria-label="pagination">
+                    <?php if ($_GET['page'] > 1) : ?>
+                        <a class="pagination-previous" href="polls.php?page=<?= $_GET['page'] - 1 ?>">Previous</a>
+                    <?php else : ?>
+                        <span class="pagination-previous" disabled>Previous</span>
+                    <?php endif; ?>
+                    <?php if ($total_pages > $_GET['page']) : ?>
+                        <a class="pagination-next" href="polls.php?page=<?= $_GET['page'] + 1 ?>">Next page</a>
+                    <?php else : ?>
+                        <span class="pagination-next" disabled>Next page</span>
+                    <?php endif; ?>
+                    <ul class="pagination-list">
+                        <?php
+                        for ($i = 1; $i <= $total_pages; $i++) {
+                            if ($i == $_GET['page']) {
+                                echo "<li><a href='polls.php?page=$i'><u>" . $i . "</u>&nbsp;</a></li>";
+                            } else {
+                                echo "<li><a href='polls.php?page=$i'>" . $i . "&nbsp;</a></li>";
+                            }
+                        }
+                        ?>
+                    </ul>
+                </nav>
+            <?php endif; ?>
     </div>
     <!-- END RIGHT CONTENT COLUMN-->
 </div>

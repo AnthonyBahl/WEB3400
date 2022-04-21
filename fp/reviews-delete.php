@@ -20,6 +20,13 @@ $pdo = pdo_connect_mysql();
 $validID = true;
 
 if (isset($_GET['id'])) {
+    // Get page number for contacts.php for reditects
+    $stmt = $pdo->prepare('WITH cte AS (SELECT `id`, ROW_NUMBER() OVER (ORDER BY `submit_date` DESC) AS rn FROM `reviews`) SELECT rn FROM cte WHERE id = ?');
+    $stmt->execute([$_GET['id']]);
+    $row_number = $stmt->fetchColumn();
+    $return_page_number = floor($row_number / 10) + 1;
+
+
     $stmt = $pdo->prepare("SELECT `name` AS reviewer, `content` AS review, `rating`, DATE_FORMAT(`submit_date`, '%M %D %Y') AS review_date FROM `reviews` WHERE `id` = ?");
     $stmt->execute([$_GET['id']]);
     $review = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -33,7 +40,7 @@ if (isset($_GET['id'])) {
                 $stmt = $pdo->prepare('DELETE FROM `reviews` WHERE `id` = ?');
                 $stmt->execute([$_GET['id']]);
             }
-            header('Location: admin.php');
+            header('Location: reviews-admin.php?page=' . $return_page_number);
         }
     }
 } else {

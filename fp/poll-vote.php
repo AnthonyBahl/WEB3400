@@ -18,6 +18,11 @@ $pdo = pdo_connect_mysql();
 
 // Check if there was an ID passed
 if (isset($_GET['id'])) {
+    // Get page number for contacts.php for reditects
+    $stmt = $pdo->prepare('WITH cte AS (SELECT `id`, ROW_NUMBER() OVER (ORDER BY `id` DESC) AS rn FROM `polls`) SELECT rn FROM cte WHERE id = ?');
+    $stmt->execute([$_GET['id']]);
+    $row_number = $stmt->fetchColumn();
+    $return_page_number = floor($row_number / 10) + 1;
 
     // Get the poll answers for the poll that matches the id
     $stmt = $pdo->prepare('SELECT * FROM `polls` WHERE `id` = ?');
@@ -35,7 +40,7 @@ if (isset($_GET['id'])) {
         $responses[] = "There was an error grabing poll with ID of " . $_GET['id'];
     }
 } else {
-    $responses[] = "You must provide a poll ID. <a href='polls.php'>Click Here</a> to return to the polls list.";
+    $responses[] = "You must provide a poll ID. <a href='polls.php?page=" .$return_page_number . "'>Click Here</a> to return to the polls list.";
 }
 
 // Vote on Poll
@@ -87,7 +92,7 @@ if (!empty($_POST) && isset($_GET['id'])) {
             <button class="button is-link">Vote</button>
         </div>
     </div>
-    <a href="polls.php">Return to polls page</a>
+    <a href="polls.php?page=<?= $return_page_number ?>">Return to polls page</a>
 </form>
 </div>
 <!-- END PAGE CONTENT -->

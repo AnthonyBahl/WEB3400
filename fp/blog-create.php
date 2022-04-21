@@ -97,7 +97,7 @@ if (isset($_POST['title'], $_POST['name'], $_POST['content'])) {
         </p>
         <!-- Cancel Button -->
         <p class="control">
-            <a href="admin.php" class="button is-light">
+            <a href="blog-admin.php" class="button is-light">
                 Cancel
             </a>
         </p>

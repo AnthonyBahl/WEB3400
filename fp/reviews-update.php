@@ -18,10 +18,16 @@ $pdo = pdo_connect_mysql();
 
 // Your MySQL query that selects the blog post goes here
 if (isset($_GET['id'])) {
+    // Get page number for contacts.php for reditects
+    $stmt = $pdo->prepare('WITH cte AS (SELECT `id`, ROW_NUMBER() OVER (ORDER BY `submit_date` DESC) AS rn FROM `reviews`) SELECT rn FROM cte WHERE id = ?');
+    $stmt->execute([$_GET['id']]);
+    $row_number = $stmt->fetchColumn();
+    $return_page_number = floor($row_number / 10) + 1;
 
     // MySQL query that selects the poll records by the GET request "id"
     $stmt = $pdo->prepare("SELECT `id` AS review_id, `name` AS reviewer, `content`, `rating`, DATE_FORMAT(`submit_date`, '%M %D %Y') AS review_date
-                        FROM `reviews`");
+                        FROM `reviews`
+                        WHERE `id` = ?");
     $stmt->execute([$_GET['id']]);
 
     // Fetch the record
@@ -67,10 +73,10 @@ if (isset($_POST['rating'], $_POST['name'], $_POST['content'])) {
 
         $responses[] = $rating;
 
-        $stmt = $pdo->prepare('UPDATE `reviews` SET `name`= ?, `content`= ?, `rating`= ?, `submit_date`= NOW() WHERE `id` = ?');
+        $stmt = $pdo->prepare('UPDATE `reviews` SET `name`= ?, `content`= ?, `rating`= ? WHERE `id` = ?');
         $stmt->execute([$author, $content, $rating, $_GET['id']]);
 
-        $headerLocation = 'Location: admin.php?id=' . $_GET['id'];
+        header('Location: reviews-admin.php?page=' . $return_page_number);
         header($headerLocation);
     }
 }
@@ -156,7 +162,7 @@ if (isset($_POST['rating'], $_POST['name'], $_POST['content'])) {
         </p>
         <!-- Cancel Button -->
         <p class="control">
-            <a href="admin.php" class="button is-light">
+            <a href="reviews-admin.php?page=<?= $return_page_number ?>" class="button is-light">
                 Cancel
             </a>
         </p>

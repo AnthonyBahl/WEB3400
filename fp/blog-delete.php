@@ -20,6 +20,12 @@ $pdo = pdo_connect_mysql();
 $validID = true;
 
 if (isset($_GET['id'])) {
+    // Get page number for contacts.php for reditects
+    $stmt = $pdo->prepare('WITH cte AS (SELECT `id`, ROW_NUMBER() OVER (ORDER BY `created` DESC) AS rn FROM `blog_post` WHERE `published`) SELECT rn FROM cte WHERE id = ?');
+    $stmt->execute([$_GET['id']]);
+    $row_number = $stmt->fetchColumn();
+    $return_page_number = floor($row_number / 10) + 1;
+
     $stmt = $pdo->prepare('SELECT `title` FROM `blog_post` WHERE `id` = ?');
     $stmt->execute([$_GET['id']]);
     $post = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -34,7 +40,7 @@ if (isset($_GET['id'])) {
                 $stmt->execute([$_GET['id']]);
 
             }
-            header('Location: admin.php');
+            header('Location: blog-admin.php?page=' . $return_page_number);
         }
     }
 } else {

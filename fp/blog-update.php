@@ -21,6 +21,12 @@ $validID = true;
 
 // Get current information from Database
 if (isset($_GET['id'])) {
+    // Get page number for contacts.php for reditects
+    $stmt = $pdo->prepare('WITH cte AS (SELECT `id`, ROW_NUMBER() OVER (ORDER BY `created` DESC) AS rn FROM `blog_post` WHERE `published`) SELECT rn FROM cte WHERE id = ?');
+    $stmt->execute([$_GET['id']]);
+    $row_number = $stmt->fetchColumn();
+    $return_page_number = floor($row_number / 10) + 1;
+
     // get post from the database
     $stmt = $pdo->prepare('SELECT * FROM `blog_post` WHERE `id` = ?');
     $stmt->execute([$_GET['id']]);
@@ -49,8 +55,7 @@ if (isset($_POST['title'], $_POST['name'], $_POST['content'])) {
         $stmt = $pdo->prepare('UPDATE `blog_post` SET `author_name` = ?, `title` = ?, `content` = ?, `published` = ? WHERE `id` = ?');
         $stmt->execute([$author, $title, $content, $published, $_GET['id']]);
 
-        $headerLocation = 'Location: blog-post.php?id=' . $_GET['id'];
-        header($headerLocation);
+        header('Location: blog-admin.php?page=' . $return_page_number);
     }
 }
 
@@ -120,7 +125,7 @@ if (isset($_POST['title'], $_POST['name'], $_POST['content'])) {
             </p>
             <!-- Cancel Button -->
             <p class="control">
-                <a href="admin.php" class="button is-light">
+                <a href="blog-admin.php?page=<?= $return_page_number ?>" class="button is-light">
                     Cancel
                 </a>
             </p>
